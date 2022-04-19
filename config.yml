@@ -1,0 +1,130 @@
+baseURL: https://blog.xn--7ovq92diups1e.com
+languageCode: en-us
+title: 華鳥風月
+theme: PaperMod
+timeZone: "Asia/Shanghai"
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+enableInlineShortcodes: true
+enableGitInfo: true
+defaultContentLanguage: en
+defaultContentLanguageInSubdir: true
+paginate: 15
+
+languages:
+  en:
+    languageName: "English"
+    weight: 1
+    menu:
+      main:
+        - name: Search
+          url: search/
+          weight: 1
+        - name: Tags
+          url: tags/
+          weight: 9
+        - name: Projects
+          url: projects/
+          weight: 10
+        - name: About
+          url: about/
+          weight: 99
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  description: "Ryo 的个人博客."
+  author: Ryo
+  # author: ["Me", "You"] # multiple authors
+  defaultTheme: auto
+  disableThemeToggle: false
+  DateFormat: "2006-01-02"
+  ShowFullTextinRSS: true
+
+  ShowShareButtons: false
+  ShowReadingTime: true
+  displayFullLangName: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  hideFooter: false # 隐藏页脚
+  ShowWordCounts: true
+  VisitCount: true
+  ShowLastMod: true #显示文章更新时间
+  disableSpecialistPost: false
+  disableScrollToTop: false
+  comments: true
+  hidemeta: false
+  hideSummary: false
+  showtoc: true
+  tocopen: true
+
+  editPost:
+    URL: "https://github.com/RyoLee/blog/tree/master/content"
+    Text: "Suggest Changes"
+    appendFilePath: true
+
+  # home-info mode
+  homeInfoParams:
+    Title: "杂物箱"
+    Content: Welcome
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/RyoLee"
+    - name: twitter
+      url: "https://twitter.com/Ryo_LV01"
+    - name: RSS
+      url: "index.xml"
+
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true # HUGO 默认转义 Markdown 文件中的 HTML 代码，如需开启的话
+  highlight:
+    # anchorLineNos: true
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    # noClasses: false
+    # style: monokai
+    style: darcula
+
+    # codeFences：代码围栏功能，这个功能一般都要设为 true 的，不然很难看，就是干巴巴的-代码文字，没有颜色。
+    # guessSyntax：猜测语法，这个功能建议设置为 true, 如果你没有设置要显示的语言则会自动匹配。
+    # hl_Lines：高亮的行号，一般这个不设置，因为每个代码块我们可能希望让高亮的地方不一样。
+    # lineNoStart：行号从编号几开始，一般从 1 开始。
+    # lineNos：是否显示行号，我比较喜欢显示，所以我设置的为 true.
+    # lineNumbersInTable：使用表来格式化行号和代码,而不是 标签。这个属性一般设置为 true.
+    # noClasses：使用 class 标签，而不是内嵌的内联样式
+frontmatter:
+  date: ["date", "publishDate", "lastmod"]
+  lastmod: [":git", "lastmod", "date", "publishDate"]
+  publishDate: ["publishDate", "date"]
+  expiryDate: ["expiryDate"]
+
+taxonomies:
+  tag: tags
+  project: projects
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
