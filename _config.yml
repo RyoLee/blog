@@ -7,7 +7,7 @@ words_per_minute:   200
 logo:               'assets/img/logo.png'
 background:         'assets/img/placeholder-big.jpg'
 tiled_bg:           false   # Set this true if you want to tile your background image, otherwise it will be covered
-locale:             cn_ZH
+locale:             zh_CN
 url:                https://blog.xn--7ovq92diups1e.com
 
 # Jekyll
