@@ -1,6 +1,6 @@
 # Site
 title:              華鳥風月
-bio:                'Ryo 的个人博客.'
+bio:                '个人博客.'
 description:        "Ryo 的个人博客."
 reading_time:       true
 words_per_minute:   200
@@ -26,7 +26,7 @@ sass:
   style:            compressed
 
 # Comments
-disqus_shortname:   taylantatli
+disqus_shortname:   ryo-blog
 
 # Social
 # if you don't have any of social below, comment the line.
