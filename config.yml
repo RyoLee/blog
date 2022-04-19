@@ -2,7 +2,7 @@ baseURL: https://blog.xn--7ovq92diups1e.com
 languageCode: en-us
 title: 華鳥風月
 theme: PaperMod
-timeZone: "Asia/Shanghai"
+timeZone: Asia/Shanghai
 
 enableRobotsTXT: true
 buildDrafts: false
