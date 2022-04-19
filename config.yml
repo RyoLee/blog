@@ -10,7 +10,6 @@ buildFuture: false
 buildExpired: false
 
 enableInlineShortcodes: true
-enableGitInfo: true
 defaultContentLanguage: en
 defaultContentLanguageInSubdir: true
 paginate: 15
@@ -31,7 +30,7 @@ languages:
           url: projects/
           weight: 10
         - name: About
-          url: about/
+          url: https://github.com/RyoLee
           weight: 99
 
 params:
@@ -113,11 +112,12 @@ markup:
     # lineNos：是否显示行号，我比较喜欢显示，所以我设置的为 true.
     # lineNumbersInTable：使用表来格式化行号和代码,而不是 标签。这个属性一般设置为 true.
     # noClasses：使用 class 标签，而不是内嵌的内联样式
+enableGitInfo: true
 frontmatter:
-  date: ["date", "publishDate", "lastmod"]
-  lastmod: [":git", "lastmod", "date", "publishDate"]
-  publishDate: ["publishDate", "date"]
   expiryDate: ["expiryDate"]
+  date: ["date", "publishDate", "lastmod", ":git"]
+  lastmod: [":git", "lastmod", ":fileModTime", ":default"]
+  publishDate: ["publishDate", "date", ":git"]
 
 taxonomies:
   tag: tags
