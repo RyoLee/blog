@@ -185,4 +185,9 @@ chain=prerouting action=mark-routing new-routing-mark=bypass passthrough=yes src
 
 ### DNS CDN优化
 
-已解决,待编辑
+表现: 不需要分流区域域名CDN解析为分流区域.
+
+原因: Op全局流量走富强.
+
+解决: dnsmasq-full分流list外走国内DNS服务,list内走DoH,Op故障时回落全国内DNS服务.
+

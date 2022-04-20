@@ -69,7 +69,7 @@ params:
     Title: "杂物箱"
     Content: Welcome
   utteranc:
-    repo: "RyoLee/blog"
+    repo: "RyoLee/blog-comment"
     issueTerm: "pathname"
     theme: "github-light"
   socialIcons:
