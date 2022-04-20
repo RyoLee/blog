@@ -1,8 +1,9 @@
 baseURL: https://blog.xn--7ovq92diups1e.com
-languageCode: en-us
+languageCode: zh-cn
 title: 華鳥風月
 theme: PaperMod
 timeZone: Asia/Shanghai
+hasCJKLanguage: true
 
 enableRobotsTXT: true
 buildDrafts: false
@@ -11,7 +12,7 @@ buildExpired: false
 enableInlineShortcodes: true
 defaultContentLanguage: en
 defaultContentLanguageInSubdir: true
-paginate: 15
+paginate: 10
 
 languages:
   en:
@@ -49,7 +50,7 @@ params:
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
   hideFooter: false # 隐藏页脚
-  ShowWordCounts: true
+  ShowWordCount: true
   ShowLastMod: true #显示文章更新时间
   disableSpecialistPost: false
   disableScrollToTop: false
@@ -68,10 +69,12 @@ params:
   homeInfoParams:
     Title: "杂物箱"
     Content: Welcome
+
   utteranc:
     repo: "RyoLee/blog-comment"
     issueTerm: "pathname"
     theme: "github-light"
+
   socialIcons:
     - name: github
       url: "https://github.com/RyoLee"
@@ -113,6 +116,7 @@ markup:
     # lineNos：是否显示行号，我比较喜欢显示，所以我设置的为 true.
     # lineNumbersInTable：使用表来格式化行号和代码,而不是 标签。这个属性一般设置为 true.
     # noClasses：使用 class 标签，而不是内嵌的内联样式
+
 enableGitInfo: true
 frontmatter:
   expiryDate: ["expiryDate"]
