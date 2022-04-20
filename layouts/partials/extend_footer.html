@@ -1,25 +1,14 @@
+<p id="counter" class="post-meta">
+    <span id="busuanzi_container_site_pv">Site PV: <span id="busuanzi_value_site_pv"></span></span>&nbsp;&nbsp;
+    <span id="busuanzi_container_site_uv">Site UV: <span id="busuanzi_value_site_uv"></span></span>&nbsp;&nbsp;
+    <span id="busuanzi_container_page_pv">Page PV: <span id="busuanzi_value_page_pv"></span></span>
+</p>
 <script>
-    var footer = document.getElementsByClassName("footer")[0];
-
-    var spvv = document.createElement("span");
-    spvv.setAttribute("id", "busuanzi_value_site_pv");
-    var spvc = document.createElement("span");
-    spvc.setAttribute("id", "busuanzi_container_site_pv");
-    spvc.appendChild(spvv);
-
-    var suvv = document.createElement("span");
-    suvv.setAttribute("id", "busuanzi_value_site_uv");
-    var suvc = document.createElement("span");
-    suvc.setAttribute("id", "busuanzi_container_site_uv");
-    suvc.appendChild(suvv);
-
-    var ppvv = document.createElement("span");
-    ppvv.setAttribute("id", "busuanzi_value_page_pv");
-    var ppvc = document.createElement("span");
-    ppvc.setAttribute("id", "busuanzi_container_page_pv");
-    ppvc.appendChild(ppvv);
-
-    var countDiv = document.createElement("div");
-    countDiv.prepend("Site PV:\t", spvc, "\tSite UV:\t", suvc, "\tPage PV:\t", ppvc)
-    footer.prepend(countDiv);
+    var counter = document.getElementById("counter");
+    if (window.location.pathname == '/search/') {
+        counter.parentNode.removeChild(counter);
+    } else {
+        var main = document.getElementsByClassName("main")[0];
+        main.prepend(counter);
+    }
 </script>
