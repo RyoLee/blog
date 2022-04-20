@@ -1,0 +1,25 @@
+<script>
+    var footer = document.getElementsByClassName("footer")[0];
+
+    var spvv = document.createElement("span");
+    spvv.setAttribute("id", "busuanzi_value_site_pv");
+    var spvc = document.createElement("span");
+    spvc.setAttribute("id", "busuanzi_container_site_pv");
+    spvc.appendChild(spvv);
+
+    var suvv = document.createElement("span");
+    suvv.setAttribute("id", "busuanzi_value_site_uv");
+    var suvc = document.createElement("span");
+    suvc.setAttribute("id", "busuanzi_container_site_uv");
+    suvc.appendChild(suvv);
+
+    var ppvv = document.createElement("span");
+    ppvv.setAttribute("id", "busuanzi_value_page_pv");
+    var ppvc = document.createElement("span");
+    ppvc.setAttribute("id", "busuanzi_container_page_pv");
+    ppvc.appendChild(ppvv);
+
+    var countDiv = document.createElement("div");
+    countDiv.prepend("Site PV:\t", spvc, "\tSite UV:\t", suvc, "\tPage PV:\t", ppvc)
+    footer.prepend(countDiv);
+</script>
