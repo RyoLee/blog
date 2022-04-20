@@ -4,8 +4,6 @@ title: RouterOS 通过 OSPF IP分流至 OpenWrt
 description: "ROS ip 分流方案"
 tags: ["RouterOS","ROS", "OpenWrt","OP","OSPF","BRID","ip分流"]
 projects: ["Homelab"]
-draft: true
-searchHidden: true
 ---
 
 编辑中....
