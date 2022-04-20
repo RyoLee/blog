@@ -1,26 +1,25 @@
 ---
 author: Ryo
-title: RouterOS 通过 OSPF IP分流至 OpenWrt
+title: RouteROS 通过 OSPF IP分流至 OpenWrt
 description: "ROS ip 分流方案"
-tags: ["RouterOS","ROS", "OpenWrt","OP","OSPF","BRID","ip分流"]
+tags: ["RouteROS","ROS", "OpenWrt","OP","OSPF","BRID","ip分流"]
 projects: ["Homelab"]
 ---
 
 编辑中....
-
-# RouterOS通过OSPF IP分流至OpenWrt
+### 组网参考
 
 Reflist:
-- [使用RouterOS，OSPF 和OpenWRT给国内外 IP 分流](https://www.truenasscale.com/2021/12/13/195.html)
-- [RouterOS路由OSPF协议+树莓派分流国外流量](https://www.kn1f4.com/news/767.html)
+- [使用RouteROS，OSPF 和OpenWRT给国内外 IP 分流](https://www.truenasscale.com/2021/12/13/195.html)
+- [RouteROS路由OSPF协议+树莓派分流国外流量](https://www.kn1f4.com/news/767.html)
 
-参考Reflist中两篇文章组网,遇到一些问题记录一下
+遇到一些问题记录一下
 
 ### ROS DDNS失效
 
 表现: 域名解析ip不正确
 
-原因: 分流后ros内置ip cloud(DDNS)流量同样会被指向OpenWrt导致错误,尝试打标签bypass对应udp流量未成功,因为有公网IP所以直接改为通过域名服务商API更新对应解析为PPPOE接口地址.
+原因: 分流后ROS内置ip cloud(DDNS)流量同样会被指向OpenWrt导致错误,尝试打标签bypass对应udp流量未成功,因为有公网IP所以直接改为通过域名服务商API更新对应解析为PPPOE接口地址.
 
 解决: 修改以下脚本中"CloudFlare variables"段内容即可.原始脚本见[Mikrotik_CF_DDNS](https://github.com/mike6715b/Mikrotik_CF_DDNS)
 
@@ -30,7 +29,7 @@ Reflist:
 ```
 #########################################################################
 #         ==================================================            #
-#         $ Mikrotik RouterOS update script for CloudFlare $            #
+#         $ Mikrotik RouteROS update script for CloudFlare $            #
 #         ==================================================            #
 #                                                                       #
 # - You need a CloudFlare account & api key (look under settings),      #
@@ -47,7 +46,7 @@ Reflist:
 # - Put script under /system scripts giving "read,write,ftp" policy access.       #
 #   For 6.29 and older "test" policy is also needed.                    #
 # - Add script to /system scheduler using it's name in "on-event"       #
-# - Requires at least RouterOS 6.44beta75 for multiple header support   #
+# - Requires at least RouteROS 6.44beta75 for multiple header support   #
 #                                                                       #
 #              Credits for Samuel Tegenfeldt, CC BY-SA 3.0              #
 #                        Modified by kiler129                           #
@@ -155,7 +154,7 @@ Reflist:
 
 表现: 访问网站时打开缓慢,F12查看SSL阶段时间长度接近甚至超过10秒.
 
-原因: OP与ROS在同一网段,进出流量路由不对称.
+原因: OP与ROS在同一网段,进出流量路由不对称,触发ROS防火墙动作.
 
 解决: 禁用ROS防火墙drop invalid规则(位于ip-firewall-filter rules).
 
@@ -167,13 +166,13 @@ Reflist:
 
 解决:
 - A: Op添加 ICMP劫持(假响应,可规避一些软件的报错)
-- B: Ros给ICMP流量打上bypass的route标签,再创建一个bypass路由表,改表不包含分流规则(如果没有被ISP之类的劫持就是裸连的真响应)
+- B: ROS给ICMP流量打上bypass的route标签,再创建一个bypass路由表,该表不包含OSPF宣告的分流规则,所以如果没有被ISP之类的劫持就是裸连的真响应
 
 ### Openwrt无法与被分流网段通信(循环)
 
 表现: OpenWrt与被分流网段通信时不通.
 
-原因: 路由循环Op->ROS->Op->...
+原因: ROS接到宣告的表后循环Op->ROS->Op->...
 
 解决: 给Op流量打上标签,直接走bypass表
 

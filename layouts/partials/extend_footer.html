@@ -4,11 +4,9 @@
     <span id="busuanzi_container_page_pv">Page PV: <span id="busuanzi_value_page_pv"></span></span>
 </p>
 <script>
-    var counter = document.getElementById("counter");
     if (window.location.pathname == '/search/') {
-        counter.parentNode.removeChild(counter);
+        document.getElementById("counter").parentNode.removeChild(document.getElementById("counter"));
     } else {
-        var main = document.getElementsByClassName("main")[0];
-        main.prepend(counter);
+        document.getElementsByClassName("main")[0].prepend(document.getElementById("counter"));
     }
 </script>
