@@ -8,7 +8,6 @@ enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
 buildExpired: false
-disqusShortname: ryo-blog
 enableInlineShortcodes: true
 defaultContentLanguage: en
 defaultContentLanguageInSubdir: true
@@ -69,7 +68,10 @@ params:
   homeInfoParams:
     Title: "杂物箱"
     Content: Welcome
-
+  utteranc:
+    repo: "RyoLee/blog"
+    issueTerm: "pathname"
+    theme: "github-light"
   socialIcons:
     - name: github
       url: "https://github.com/RyoLee"
