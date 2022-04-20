@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>華鳥風月</title>
-    <link>https://blog.xn--7ovq92diups1e.com/</link>
-    <description>Recent content on 華鳥風月</description>
+    <title>BRID on 華鳥風月</title>
+    <link>https://blog.xn--7ovq92diups1e.com/tags/brid/</link>
+    <description>Recent content in BRID on 華鳥風月</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 20 Apr 2022 18:03:51 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 Apr 2022 18:03:51 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/brid/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RouterOS 通过 OSPF IP分流至 OpenWrt</title>
       <link>https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/</link>
@@ -304,7 +304,6 @@
 <p>已解决,待编辑</p>
 ]]></content:encoded>
     </item>
-    
     
   </channel>
 </rss>
