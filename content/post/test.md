@@ -4,6 +4,8 @@ title: 测试页
 description: "Sample article for test."
 tags: ["test","hugo"]
 projects: ["blog"]
+hidden: true
+draft: true
 ---
 
 Test line

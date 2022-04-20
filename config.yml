@@ -8,7 +8,7 @@ enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
 buildExpired: false
-
+disqusShortname: ryo-blog
 enableInlineShortcodes: true
 defaultContentLanguage: en
 defaultContentLanguageInSubdir: true
