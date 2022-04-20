@@ -6,11 +6,11 @@
     <description>Recent content in ROS on 華鳥風月</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 20 Apr 2022 18:03:51 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/ros/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 Apr 2022 19:29:37 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/ros/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RouterOS 通过 OSPF IP分流至 OpenWrt</title>
       <link>https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/</link>
-      <pubDate>Wed, 20 Apr 2022 18:03:51 +0800</pubDate>
+      <pubDate>Wed, 20 Apr 2022 19:29:37 +0800</pubDate>
       
       <guid>https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/</guid>
       <description>ROS ip 分流方案</description>
@@ -301,7 +301,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="dns-cdn优化">DNS CDN优化</h3>
-<p>已解决,待编辑</p>
+<p>表现: 不需要分流区域域名CDN解析为分流区域.</p>
+<p>原因: Op全局流量走富强.</p>
+<p>解决: dnsmasq-full分流list外走国内DNS服务,list内走DoH,Op故障时回落全国内DNS服务.</p>
 ]]></content:encoded>
     </item>
     
