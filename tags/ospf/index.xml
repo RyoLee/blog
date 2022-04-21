@@ -6,16 +6,15 @@
     <description>Recent content in OSPF on 華鳥風月</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 21 Apr 2022 10:52:37 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/ospf/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Apr 2022 22:53:12 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/ospf/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RouterOS 通过 OSPF IP分流至 OpenWrt</title>
       <link>https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/</link>
-      <pubDate>Thu, 21 Apr 2022 10:52:37 +0800</pubDate>
+      <pubDate>Thu, 21 Apr 2022 22:53:12 +0800</pubDate>
       
       <guid>https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/</guid>
       <description>ROS ip 分流方案</description>
-      <content:encoded><![CDATA[<p>编辑中&hellip;.</p>
-<h3 id="组网参考">组网参考</h3>
+      <content:encoded><![CDATA[<h3 id="组网参考">组网参考</h3>
 <p>Reflist:</p>
 <ul>
 <li><a href="https://www.truenasscale.com/2021/12/13/195.html">使用RouterOS，OSPF 和OpenWRT给国内外 IP 分流</a></li>
@@ -304,6 +303,10 @@
 <p>表现: 不需要分流区域域名CDN解析为分流区域.</p>
 <p>原因: Op全局流量走富强.</p>
 <p>解决: dnsmasq-full分流list外走国内DNS服务,list内走DoH,Op故障时回落全国内DNS服务.</p>
+<h3 id="openwrt访问内网异常">OpenWrt访问内网异常</h3>
+<p>表现: Op所在子网广播域外的其他子网访问Op时,无法正常响应.</p>
+<p>原因: Op走了bypass表,未添加其他子网路由,下一跳直接从pppoe-out出去了.</p>
+<p>解决: 防火墙匹配src address为op的ip,dst address为需要支持访问子网流量打上main标签走main路由表.</p>
 ]]></content:encoded>
     </item>
     
