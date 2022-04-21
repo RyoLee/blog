@@ -6,11 +6,11 @@
     <description>Recent content on 華鳥風月</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 20 Apr 2022 21:24:42 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Apr 2022 10:52:37 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>RouteROS 通过 OSPF IP分流至 OpenWrt</title>
+      <title>RouterOS 通过 OSPF IP分流至 OpenWrt</title>
       <link>https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/</link>
-      <pubDate>Wed, 20 Apr 2022 21:24:42 +0800</pubDate>
+      <pubDate>Thu, 21 Apr 2022 10:52:37 +0800</pubDate>
       
       <guid>https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/</guid>
       <description>ROS ip 分流方案</description>
@@ -18,8 +18,8 @@
 <h3 id="组网参考">组网参考</h3>
 <p>Reflist:</p>
 <ul>
-<li><a href="https://www.truenasscale.com/2021/12/13/195.html">使用RouteROS，OSPF 和OpenWRT给国内外 IP 分流</a></li>
-<li><a href="https://www.kn1f4.com/news/767.html">RouteROS路由OSPF协议+树莓派分流国外流量</a></li>
+<li><a href="https://www.truenasscale.com/2021/12/13/195.html">使用RouterOS，OSPF 和OpenWRT给国内外 IP 分流</a></li>
+<li><a href="https://www.kn1f4.com/news/767.html">RouterOS路由OSPF协议+树莓派分流国外流量</a></li>
 </ul>
 <p>遇到一些问题记录一下</p>
 <h3 id="ros-ddns失效">ROS DDNS失效</h3>
@@ -154,7 +154,7 @@
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>#########################################################################
 </span></span><span style="display:flex;"><span>#         ==================================================            #
-</span></span><span style="display:flex;"><span>#         $ Mikrotik RouteROS update script for CloudFlare $            #
+</span></span><span style="display:flex;"><span>#         $ Mikrotik RouterOS update script for CloudFlare $            #
 </span></span><span style="display:flex;"><span>#         ==================================================            #
 </span></span><span style="display:flex;"><span>#                                                                       #
 </span></span><span style="display:flex;"><span># - You need a CloudFlare account &amp; api key (look under settings),      #
@@ -171,7 +171,7 @@
 </span></span><span style="display:flex;"><span># - Put script under /system scripts giving &#34;read,write,ftp&#34; policy access.       #
 </span></span><span style="display:flex;"><span>#   For 6.29 and older &#34;test&#34; policy is also needed.                    #
 </span></span><span style="display:flex;"><span># - Add script to /system scheduler using it&#39;s name in &#34;on-event&#34;       #
-</span></span><span style="display:flex;"><span># - Requires at least RouteROS 6.44beta75 for multiple header support   #
+</span></span><span style="display:flex;"><span># - Requires at least RouterOS 6.44beta75 for multiple header support   #
 </span></span><span style="display:flex;"><span>#                                                                       #
 </span></span><span style="display:flex;"><span>#              Credits for Samuel Tegenfeldt, CC BY-SA 3.0              #
 </span></span><span style="display:flex;"><span>#                        Modified by kiler129                           #
