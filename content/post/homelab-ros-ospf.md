@@ -6,7 +6,6 @@ tags: ["RouterOS","ROS", "OpenWrt","OP","OSPF","BRID","ip分流"]
 projects: ["Homelab"]
 ---
 
-编辑中....
 ### 组网参考
 
 Reflist:
@@ -190,3 +189,10 @@ chain=prerouting action=mark-routing new-routing-mark=bypass passthrough=yes src
 
 解决: dnsmasq-full分流list外走国内DNS服务,list内走DoH,Op故障时回落全国内DNS服务.
 
+### OpenWrt访问内网异常
+
+表现: Op所在子网广播域外的其他子网访问Op时,无法正常响应.
+
+原因: Op走了bypass表,未添加其他子网路由,下一跳直接从pppoe-out出去了.
+
+解决: 防火墙匹配src address为op的ip,dst address为需要支持访问子网流量打上main标签走main路由表.

@@ -59,6 +59,8 @@ params:
   hideSummary: false
   showtoc: true
   tocopen: true
+  assets:
+    disableFingerprinting: true
 
   editPost:
     URL: "https://github.com/RyoLee/blog/tree/master/content"
@@ -94,7 +96,7 @@ params:
 
 minify:
   disableXML: true
-  minifyOutput: true
+  minifyOutput: false
 
 markup:
   goldmark:
