@@ -1,8 +1,8 @@
 ---
 author: Ryo
-title: RouteROS 通过 OSPF IP分流至 OpenWrt
+title: RouterOS 通过 OSPF IP分流至 OpenWrt
 description: "ROS ip 分流方案"
-tags: ["RouteROS","ROS", "OpenWrt","OP","OSPF","BRID","ip分流"]
+tags: ["RouterOS","ROS", "OpenWrt","OP","OSPF","BRID","ip分流"]
 projects: ["Homelab"]
 ---
 
@@ -10,8 +10,8 @@ projects: ["Homelab"]
 ### 组网参考
 
 Reflist:
-- [使用RouteROS，OSPF 和OpenWRT给国内外 IP 分流](https://www.truenasscale.com/2021/12/13/195.html)
-- [RouteROS路由OSPF协议+树莓派分流国外流量](https://www.kn1f4.com/news/767.html)
+- [使用RouterOS，OSPF 和OpenWRT给国内外 IP 分流](https://www.truenasscale.com/2021/12/13/195.html)
+- [RouterOS路由OSPF协议+树莓派分流国外流量](https://www.kn1f4.com/news/767.html)
 
 遇到一些问题记录一下
 
@@ -29,7 +29,7 @@ Reflist:
 ```
 #########################################################################
 #         ==================================================            #
-#         $ Mikrotik RouteROS update script for CloudFlare $            #
+#         $ Mikrotik RouterOS update script for CloudFlare $            #
 #         ==================================================            #
 #                                                                       #
 # - You need a CloudFlare account & api key (look under settings),      #
@@ -46,7 +46,7 @@ Reflist:
 # - Put script under /system scripts giving "read,write,ftp" policy access.       #
 #   For 6.29 and older "test" policy is also needed.                    #
 # - Add script to /system scheduler using it's name in "on-event"       #
-# - Requires at least RouteROS 6.44beta75 for multiple header support   #
+# - Requires at least RouterOS 6.44beta75 for multiple header support   #
 #                                                                       #
 #              Credits for Samuel Tegenfeldt, CC BY-SA 3.0              #
 #                        Modified by kiler129                           #
