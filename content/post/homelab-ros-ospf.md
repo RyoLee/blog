@@ -18,7 +18,7 @@ Reflist:
 
 表现: 域名解析ip不正确
 
-原因: 分流后ROS内置ip cloud(DDNS)流量同样会被指向OpenWrt导致错误,尝试打标签bypass对应udp流量未成功,因为有公网IP所以直接改为通过域名服务商API更新对应解析为PPPOE接口地址.
+原因: 分流后ROS内置ip cloud(DDNS)流量同样会被指向OpenWrt导致错误,尝试打标签bypass对应udp流量未成功,因为有公网IP所以直接改为通过域名服务商API更新对应解析为PPPOE接口地址
 
 解决: 修改以下脚本中"CloudFlare variables"段内容即可.原始脚本见[Mikrotik_CF_DDNS](https://github.com/mike6715b/Mikrotik_CF_DDNS)
 
@@ -151,17 +151,17 @@ Reflist:
 
 ### TCP流量握手缓慢
 
-表现: 访问网站时打开缓慢,F12查看SSL阶段时间长度接近甚至超过10秒.
+表现: 访问网站时打开缓慢,F12查看SSL阶段时间长度接近甚至超过10秒
 
-原因: OP与ROS在同一网段,进出流量路由不对称,触发ROS防火墙动作.
+原因: OP与ROS在同一网段,进出流量路由不对称,触发ROS防火墙动作
 
-解决: 禁用ROS防火墙drop invalid规则(位于ip-firewall-filter rules).
+解决: 禁用ROS防火墙drop invalid规则(位于ip-firewall-filter rules)
 
 ### ICMP(Ping)异常
 
-表现: ping 被分流网段ip时黑洞.
+表现: ping 被分流网段ip时黑洞
 
-原因: 出口Op通过TProxy只能处理TCP/UDP流量.
+原因: 出口Op通过TProxy只能处理TCP/UDP流量
 
 解决:
 - A: Op添加 ICMP劫持(假响应,可规避一些软件的报错)
@@ -169,7 +169,7 @@ Reflist:
 
 ### Openwrt无法与被分流网段通信(循环)
 
-表现: OpenWrt与被分流网段通信时不通.
+表现: OpenWrt与被分流网段通信时不通
 
 原因: ROS接到宣告的表后循环Op->ROS->Op->...
 
@@ -183,16 +183,16 @@ chain=prerouting action=mark-routing new-routing-mark=bypass passthrough=yes src
 
 ### DNS CDN优化
 
-表现: 不需要分流区域域名CDN解析为分流区域.
+表现: 不需要分流区域域名CDN解析为分流区域
 
-原因: Op全局流量走富强.
+原因: Op全局流量走富强
 
-解决: dnsmasq-full分流list外走国内DNS服务,list内走DoH,Op故障时回落全国内DNS服务.
+解决: dnsmasq-full分流list外走国内DNS服务,list内走DoH,Op故障时回落全国内DNS服务
 
 ### OpenWrt访问内网异常
 
-表现: Op所在子网广播域外的其他子网访问Op时,无法正常响应.
+表现: Op所在子网广播域外的其他子网访问Op时,无法正常响应
 
-原因: Op走了bypass表,未添加其他子网路由,下一跳直接从pppoe-out出去了.
+原因: Op走了bypass表,未添加其他子网路由,下一跳直接从pppoe-out出去了
 
-解决: 防火墙匹配src address为op的ip,dst address为需要支持访问子网流量打上main标签走main路由表.
+解决: 防火墙匹配src address为op的ip,dst address为需要支持访问子网流量打上main标签走main路由表
