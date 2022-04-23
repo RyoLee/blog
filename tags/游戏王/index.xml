@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>游戏王 on 華鳥風月</title>
+    <link>https://blog.xn--7ovq92diups1e.com/tags/%E6%B8%B8%E6%88%8F%E7%8E%8B/</link>
+    <description>Recent content in 游戏王 on 華鳥風月</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 23 Apr 2022 16:00:26 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/%E6%B8%B8%E6%88%8F%E7%8E%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gevjon -- YGO Master Duel工具</title>
+      <link>https://blog.xn--7ovq92diups1e.com/post/gevjon-home/</link>
+      <pubDate>Sat, 23 Apr 2022 16:00:26 +0800</pubDate>
+      
+      <guid>https://blog.xn--7ovq92diups1e.com/post/gevjon-home/</guid>
+      <description>支持识别控制器调用的卡查工具</description>
+      <content:encoded><![CDATA[<p>Gevjon项目由核心(Core)与控制器(Observer)组成,核心可独立使用</p>
+<p>组合使用时文件夹结构如下</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Gevjon
+</span></span><span style="display:flex;"><span>├── Gevjon-Observer.pyw
+</span></span><span style="display:flex;"><span>├── LICENSE
+</span></span><span style="display:flex;"><span>├── README.md
+</span></span><span style="display:flex;"><span>├── cards.json
+</span></span><span style="display:flex;"><span>├── core
+</span></span><span style="display:flex;"><span>│   ├── Gevjon.exe
+</span></span><span style="display:flex;"><span>│   ├── Gevjon.exe.Config
+</span></span><span style="display:flex;"><span>│   ├── README.md
+</span></span><span style="display:flex;"><span>│   ├── data.json
+</span></span><span style="display:flex;"><span>│   └── version.txt
+</span></span><span style="display:flex;"><span>├── log.txt
+</span></span><span style="display:flex;"><span>├── requirements.txt
+</span></span><span style="display:flex;"><span>└── version.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="core">Core</h3>
+<p>本项目为Gevjon项目组件core组件,仅提供卡查功能</p>
+<h4 id="界面操作">界面操作</h4>
+<p>查询框输入查询内容后回车进行查询</p>
+<ul>
+<li>ID查询为准确查询</li>
+<li>卡名查询为模糊查询,支持中日英三语</li>
+</ul>
+<h4 id="下载方式">下载方式</h4>
+<p>本项目使用Github Actions编译发布,构建完成后会自动发布到Release与<a href="https://github.com/RyoLee/Gevjon/tree/gh-pages">gh-pages</a>分支,并更新jsDeliver缓存</p>
+<p>以下4个链接正常情况下内容均一致,请在下载后检查校验和是否一致,压缩包SHA256见Release页</p>
+<ul>
+<li>
+<p><a href="https://github.com/RyoLee/Gevjon/releases/latest">Release-Latest</a></p>
+</li>
+<li>
+<p><a href="https://github.com/RyoLee/Gevjon/raw/gh-pages/Gevjon.7z">GH-Pages</a></p>
+</li>
+<li>
+<p><a href="https://cdn.jsdelivr.net/gh/RyoLee/Gevjon@gh-pages/Gevjon.7z">GH-Pages-CDN-JSD*</a></p>
+</li>
+<li>
+<p><a href="https://raw.githubusercontents.com/RyoLee/Gevjon/gh-pages/Gevjon.7z">GH-Pages-CDN-CF**</a></p>
+<p><em>* jsDelivr CDN加速缓存版本,发布更新时会尝试通知更新缓存,一般与上方两个链接内容一致,但少数情况下偶尔可能被墙</em></p>
+<p><em>** Cloudflare CDN加速缓存版本,可能会存在更新延迟问题,仅建议其他3种方式均无法下载时使用</em></p>
+</li>
+</ul>
+<h4 id="第三方调用方式">第三方调用方式</h4>
+<p>使用如下命名管道接收控制命令</p>
+<p><code>\\.\pipe\GevjonCore</code></p>
+<h4 id="控制命令格式">控制命令格式</h4>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{<span style="font-weight:bold">&#34;id&#34;</span>:<span style="color:#0ff;font-weight:bold">&#34;10000&#34;</span>,<span style="font-weight:bold">&#34;name&#34;</span>:<span style="color:#0ff;font-weight:bold">&#34;万物创世龙&#34;</span>,<span style="font-weight:bold">&#34;mode&#34;</span>:<span style="color:#0ff;font-weight:bold">&#34;name&#34;</span>,<span style="font-weight:bold">&#34;desc&#34;</span>:<span style="color:#0ff;font-weight:bold">&#34;测试文本&#34;</span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>mode: 查询模式
+<ul>
+<li>id: id搜索模式</li>
+<li>name: 卡名搜索模式</li>
+<li>issued: 控制器下发模式</li>
+</ul>
+</li>
+<li>id: YGOPro版本卡片ID</li>
+<li>name: 卡名,支持简单的模糊搜索,比如&quot;C107&quot;可查询到卡片&quot;混沌No.107 超银河眼时空龙&quot;</li>
+<li>desc: 卡效文本,仅控制器下发模式生效,使用下发模式时,不会使用内部数据生成卡名,即全文显示为下发内容</li>
+</ul>
+<p>可使用Github项目目录下PipeClient.py进行测试,请注意json需转义</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\PipeClient.py <span style="color:#0ff;font-weight:bold">&#34;{\&#34;</span>id\<span style="color:#0ff;font-weight:bold">&#34;:\&#34;</span>\<span style="color:#0ff;font-weight:bold">&#34;,\&#34;</span>name\<span style="color:#0ff;font-weight:bold">&#34;:\&#34;</span>107\<span style="color:#0ff;font-weight:bold">&#34;,\&#34;</span>mode\<span style="color:#0ff;font-weight:bold">&#34;:\&#34;</span>name\<span style="color:#0ff;font-weight:bold">&#34;}&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="控制器">控制器</h3>
+<p>项目见 <a href="https://github.com/RyoLee/Gevjon-Observer">Gevjon-Observer</a></p>
+<p>不同分支对应不同实现，以分支Readme文档为准</p>
+<h4 id="python-内存读取实现">Python 内存读取实现</h4>
+<p>本分支为Python内存读取实现</p>
+<p>基于<a href="https://github.com/SkywalkerJi/mdt">SkywalkerJi/mdt: Yu-Gi-Oh! Master Duel (github.com)</a></p>
+<p>请下载<a href="https://github.com/RyoLee/Gevjon/">RyoLee/Gevjon</a>并解压至core文件夹后,直接启动控制器(Gevjon-Observer.pyw)即可,核心会自动启动</p>
+<h3 id="风险声明">风险声明</h3>
+<p>本程序(Gevjon-Core)仅提供游戏王卡片查询功能,独立运行时与游戏无关,纯手动输入0风险</p>
+<p>至于外接了其他控制器的情况,那要看控制器是怎么实现的了,例如控制器使用OCR实现,相对内存读取实现风险会低很多(因为特征上来看和主播开OBS直播是类似的的),但是也不是0风险</p>
+<p>不管是基于内存读取还是图像识别/OCR,<strong>本质都是违反K社ToS的第三方软件</strong>,因为K社官方并没有发布任何API接口或SDK(以及配套的许可文档)允许第三方开发类似的工具</p>
+<p><strong>理论上检测很容易,不要以为只读不写/或者截图就安全,如果想查,反作弊程序给相关API下点钩子就能查,甚至暴力一点的会不管你的隐私信息直接用进程名的黑名单查(如TP之流)</strong></p>
+<p>实际上K社管不管那100%是他们内部决定的,只不过目前这个时间点他们没管,参考DL的经验他们可能也懒得管这种非恶意利用</p>
+<p><strong>总之,风险自负</strong></p>
+<h3 id="license">License</h3>
+<p><a href="https://github.com/RyoLee/Gevjon/blob/master/LICENSE">MIT License</a></p>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

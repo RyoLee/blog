@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Gevjon -- YGO Master Duel工具 | 華鳥風月</title>
+<meta name="keywords" content="YGO, Master Duel, MD, 游戏王, 决斗大师, Gevjon">
+<meta name="description" content="支持识别控制器调用的卡查工具">
+<meta name="author" content="Ryo">
+<link rel="canonical" href="https://blog.xn--7ovq92diups1e.com/post/gevjon-home/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.css" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.js" onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://blog.xn--7ovq92diups1e.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.xn--7ovq92diups1e.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.xn--7ovq92diups1e.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://blog.xn--7ovq92diups1e.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://blog.xn--7ovq92diups1e.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-66E8S3GQ2B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-66E8S3GQ2B');
+</script>
+<meta name="referrer" content="no-referrer-when-downgrade">
+<meta property="og:title" content="Gevjon -- YGO Master Duel工具" />
+<meta property="og:description" content="支持识别控制器调用的卡查工具" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.xn--7ovq92diups1e.com/post/gevjon-home/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-04-23T16:00:26&#43;08:00" />
+<meta property="article:modified_time" content="2022-04-23T16:00:26&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Gevjon -- YGO Master Duel工具"/>
+<meta name="twitter:description" content="支持识别控制器调用的卡查工具"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://blog.xn--7ovq92diups1e.com/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Gevjon -- YGO Master Duel工具",
+      "item": "https://blog.xn--7ovq92diups1e.com/post/gevjon-home/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Gevjon -- YGO Master Duel工具",
+  "name": "Gevjon -- YGO Master Duel工具",
+  "description": "支持识别控制器调用的卡查工具",
+  "keywords": [
+    "YGO", "Master Duel", "MD", "游戏王", "决斗大师", "Gevjon"
+  ],
+  "articleBody": "Gevjon项目由核心(Core)与控制器(Observer)组成,核心可独立使用\n组合使用时文件夹结构如下\n1 2 3 4 5 6 7 8 9 10 11 12 13 14  Gevjon ├── Gevjon-Observer.pyw ├── LICENSE ├── README.md ├── cards.json ├── core │ ├── Gevjon.exe │ ├── Gevjon.exe.Config │ ├── README.md │ ├── data.json │ └── version.txt ├── log.txt ├── requirements.txt └── version.txt   Core 本项目为Gevjon项目组件core组件,仅提供卡查功能\n界面操作 查询框输入查询内容后回车进行查询\n ID查询为准确查询 卡名查询为模糊查询,支持中日英三语  下载方式 本项目使用Github Actions编译发布,构建完成后会自动发布到Release与gh-pages分支,并更新jsDeliver缓存\n以下4个链接正常情况下内容均一致,请在下载后检查校验和是否一致,压缩包SHA256见Release页\n  Release-Latest\n  GH-Pages\n  GH-Pages-CDN-JSD*\n  GH-Pages-CDN-CF**\n* jsDelivr CDN加速缓存版本,发布更新时会尝试通知更新缓存,一般与上方两个链接内容一致,但少数情况下偶尔可能被墙\n** Cloudflare CDN加速缓存版本,可能会存在更新延迟问题,仅建议其他3种方式均无法下载时使用\n  第三方调用方式 使用如下命名管道接收控制命令\n\\\\.\\pipe\\GevjonCore\n控制命令格式 1  {\"id\":\"10000\",\"name\":\"万物创世龙\",\"mode\":\"name\",\"desc\":\"测试文本\"}    mode: 查询模式  id: id搜索模式 name: 卡名搜索模式 issued: 控制器下发模式   id: YGOPro版本卡片ID name: 卡名,支持简单的模糊搜索,比如\"C107\"可查询到卡片\"混沌No.107 超银河眼时空龙\" desc: 卡效文本,仅控制器下发模式生效,使用下发模式时,不会使用内部数据生成卡名,即全文显示为下发内容  可使用Github项目目录下PipeClient.py进行测试,请注意json需转义\n1  .\\PipeClient.py \"{\\\"id\\\":\\\"\\\",\\\"name\\\":\\\"107\\\",\\\"mode\\\":\\\"name\\\"}\"   控制器 项目见 Gevjon-Observer\n不同分支对应不同实现，以分支Readme文档为准\nPython 内存读取实现 本分支为Python内存读取实现\n基于SkywalkerJi/mdt: Yu-Gi-Oh! Master Duel (github.com)\n请下载RyoLee/Gevjon并解压至core文件夹后,直接启动控制器(Gevjon-Observer.pyw)即可,核心会自动启动\n风险声明 本程序(Gevjon-Core)仅提供游戏王卡片查询功能,独立运行时与游戏无关,纯手动输入0风险\n至于外接了其他控制器的情况,那要看控制器是怎么实现的了,例如控制器使用OCR实现,相对内存读取实现风险会低很多(因为特征上来看和主播开OBS直播是类似的的),但是也不是0风险\n不管是基于内存读取还是图像识别/OCR,本质都是违反K社ToS的第三方软件,因为K社官方并没有发布任何API接口或SDK(以及配套的许可文档)允许第三方开发类似的工具\n理论上检测很容易,不要以为只读不写/或者截图就安全,如果想查,反作弊程序给相关API下点钩子就能查,甚至暴力一点的会不管你的隐私信息直接用进程名的黑名单查(如TP之流)\n实际上K社管不管那100%是他们内部决定的,只不过目前这个时间点他们没管,参考DL的经验他们可能也懒得管这种非恶意利用\n总之,风险自负\nLicense MIT License\n",
+  "wordCount" : "1285",
+  "inLanguage": "en",
+  "datePublished": "2022-04-23T16:00:26+08:00",
+  "dateModified": "2022-04-23T16:00:26+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Ryo"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.xn--7ovq92diups1e.com/post/gevjon-home/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "華鳥風月",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blog.xn--7ovq92diups1e.com/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://blog.xn--7ovq92diups1e.com" accesskey="h" title="華鳥風月 (Alt + H)">華鳥風月</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://blog.xn--7ovq92diups1e.com/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.xn--7ovq92diups1e.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.xn--7ovq92diups1e.com/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/RyoLee" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main page">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://blog.xn--7ovq92diups1e.com">Home</a>&nbsp;»&nbsp;<a href="https://blog.xn--7ovq92diups1e.com/post/">Posts</a></div>
+    <h1 class="post-title">
+      Gevjon -- YGO Master Duel工具
+    </h1>
+    <div class="post-description">
+      支持识别控制器调用的卡查工具
+    </div>
+    <div class="post-meta"><span title='2022-04-23 16:00:26 +0800 CST'>2022-04-23</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;1285 words&nbsp;·&nbsp;Ryo&nbsp;|&nbsp;<a href="https://github.com/RyoLee/blog/tree/master/content/post/gevjon-home.md" rel="noopener noreferrer" target="_blank">Suggest Changes</a>
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">Table of Contents</span>
+            </summary>
+
+        <div class="inner"><ul>
+                    <li>
+                        <a href="#core" aria-label="Core">Core</a><ul>
+                            
+                    <li>
+                        <a href="#%e7%95%8c%e9%9d%a2%e6%93%8d%e4%bd%9c" aria-label="界面操作">界面操作</a></li>
+                    <li>
+                        <a href="#%e4%b8%8b%e8%bd%bd%e6%96%b9%e5%bc%8f" aria-label="下载方式">下载方式</a></li>
+                    <li>
+                        <a href="#%e7%ac%ac%e4%b8%89%e6%96%b9%e8%b0%83%e7%94%a8%e6%96%b9%e5%bc%8f" aria-label="第三方调用方式">第三方调用方式</a></li>
+                    <li>
+                        <a href="#%e6%8e%a7%e5%88%b6%e5%91%bd%e4%bb%a4%e6%a0%bc%e5%bc%8f" aria-label="控制命令格式">控制命令格式</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e6%8e%a7%e5%88%b6%e5%99%a8" aria-label="控制器">控制器</a><ul>
+                            
+                    <li>
+                        <a href="#python-%e5%86%85%e5%ad%98%e8%af%bb%e5%8f%96%e5%ae%9e%e7%8e%b0" aria-label="Python 内存读取实现">Python 内存读取实现</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e9%a3%8e%e9%99%a9%e5%a3%b0%e6%98%8e" aria-label="风险声明">风险声明</a></li>
+                    <li>
+                        <a href="#license" aria-label="License">License</a>
+                    </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+        
+        activeElement = elements[0];
+        const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+        document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+    }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+            const id = encodeURI(element.getAttribute('id')).toLowerCase();
+            if (element === activeElement){
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+            } else {
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+            }
+        })
+    }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
+
+  <div class="post-content"><p>Gevjon项目由核心(Core)与控制器(Observer)组成,核心可独立使用</p>
+<p>组合使用时文件夹结构如下</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Gevjon
+</span></span><span style="display:flex;"><span>├── Gevjon-Observer.pyw
+</span></span><span style="display:flex;"><span>├── LICENSE
+</span></span><span style="display:flex;"><span>├── README.md
+</span></span><span style="display:flex;"><span>├── cards.json
+</span></span><span style="display:flex;"><span>├── core
+</span></span><span style="display:flex;"><span>│   ├── Gevjon.exe
+</span></span><span style="display:flex;"><span>│   ├── Gevjon.exe.Config
+</span></span><span style="display:flex;"><span>│   ├── README.md
+</span></span><span style="display:flex;"><span>│   ├── data.json
+</span></span><span style="display:flex;"><span>│   └── version.txt
+</span></span><span style="display:flex;"><span>├── log.txt
+</span></span><span style="display:flex;"><span>├── requirements.txt
+</span></span><span style="display:flex;"><span>└── version.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="core">Core<a hidden class="anchor" aria-hidden="true" href="#core">#</a></h3>
+<p>本项目为Gevjon项目组件core组件,仅提供卡查功能</p>
+<h4 id="界面操作">界面操作<a hidden class="anchor" aria-hidden="true" href="#界面操作">#</a></h4>
+<p>查询框输入查询内容后回车进行查询</p>
+<ul>
+<li>ID查询为准确查询</li>
+<li>卡名查询为模糊查询,支持中日英三语</li>
+</ul>
+<h4 id="下载方式">下载方式<a hidden class="anchor" aria-hidden="true" href="#下载方式">#</a></h4>
+<p>本项目使用Github Actions编译发布,构建完成后会自动发布到Release与<a href="https://github.com/RyoLee/Gevjon/tree/gh-pages">gh-pages</a>分支,并更新jsDeliver缓存</p>
+<p>以下4个链接正常情况下内容均一致,请在下载后检查校验和是否一致,压缩包SHA256见Release页</p>
+<ul>
+<li>
+<p><a href="https://github.com/RyoLee/Gevjon/releases/latest">Release-Latest</a></p>
+</li>
+<li>
+<p><a href="https://github.com/RyoLee/Gevjon/raw/gh-pages/Gevjon.7z">GH-Pages</a></p>
+</li>
+<li>
+<p><a href="https://cdn.jsdelivr.net/gh/RyoLee/Gevjon@gh-pages/Gevjon.7z">GH-Pages-CDN-JSD*</a></p>
+</li>
+<li>
+<p><a href="https://raw.githubusercontents.com/RyoLee/Gevjon/gh-pages/Gevjon.7z">GH-Pages-CDN-CF**</a></p>
+<p><em>* jsDelivr CDN加速缓存版本,发布更新时会尝试通知更新缓存,一般与上方两个链接内容一致,但少数情况下偶尔可能被墙</em></p>
+<p><em>** Cloudflare CDN加速缓存版本,可能会存在更新延迟问题,仅建议其他3种方式均无法下载时使用</em></p>
+</li>
+</ul>
+<h4 id="第三方调用方式">第三方调用方式<a hidden class="anchor" aria-hidden="true" href="#第三方调用方式">#</a></h4>
+<p>使用如下命名管道接收控制命令</p>
+<p><code>\\.\pipe\GevjonCore</code></p>
+<h4 id="控制命令格式">控制命令格式<a hidden class="anchor" aria-hidden="true" href="#控制命令格式">#</a></h4>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{<span style="font-weight:bold">&#34;id&#34;</span>:<span style="color:#0ff;font-weight:bold">&#34;10000&#34;</span>,<span style="font-weight:bold">&#34;name&#34;</span>:<span style="color:#0ff;font-weight:bold">&#34;万物创世龙&#34;</span>,<span style="font-weight:bold">&#34;mode&#34;</span>:<span style="color:#0ff;font-weight:bold">&#34;name&#34;</span>,<span style="font-weight:bold">&#34;desc&#34;</span>:<span style="color:#0ff;font-weight:bold">&#34;测试文本&#34;</span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>mode: 查询模式
+<ul>
+<li>id: id搜索模式</li>
+<li>name: 卡名搜索模式</li>
+<li>issued: 控制器下发模式</li>
+</ul>
+</li>
+<li>id: YGOPro版本卡片ID</li>
+<li>name: 卡名,支持简单的模糊搜索,比如&quot;C107&quot;可查询到卡片&quot;混沌No.107 超银河眼时空龙&quot;</li>
+<li>desc: 卡效文本,仅控制器下发模式生效,使用下发模式时,不会使用内部数据生成卡名,即全文显示为下发内容</li>
+</ul>
+<p>可使用Github项目目录下PipeClient.py进行测试,请注意json需转义</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\PipeClient.py <span style="color:#0ff;font-weight:bold">&#34;{\&#34;</span>id\<span style="color:#0ff;font-weight:bold">&#34;:\&#34;</span>\<span style="color:#0ff;font-weight:bold">&#34;,\&#34;</span>name\<span style="color:#0ff;font-weight:bold">&#34;:\&#34;</span>107\<span style="color:#0ff;font-weight:bold">&#34;,\&#34;</span>mode\<span style="color:#0ff;font-weight:bold">&#34;:\&#34;</span>name\<span style="color:#0ff;font-weight:bold">&#34;}&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="控制器">控制器<a hidden class="anchor" aria-hidden="true" href="#控制器">#</a></h3>
+<p>项目见 <a href="https://github.com/RyoLee/Gevjon-Observer">Gevjon-Observer</a></p>
+<p>不同分支对应不同实现，以分支Readme文档为准</p>
+<h4 id="python-内存读取实现">Python 内存读取实现<a hidden class="anchor" aria-hidden="true" href="#python-内存读取实现">#</a></h4>
+<p>本分支为Python内存读取实现</p>
+<p>基于<a href="https://github.com/SkywalkerJi/mdt">SkywalkerJi/mdt: Yu-Gi-Oh! Master Duel (github.com)</a></p>
+<p>请下载<a href="https://github.com/RyoLee/Gevjon/">RyoLee/Gevjon</a>并解压至core文件夹后,直接启动控制器(Gevjon-Observer.pyw)即可,核心会自动启动</p>
+<h3 id="风险声明">风险声明<a hidden class="anchor" aria-hidden="true" href="#风险声明">#</a></h3>
+<p>本程序(Gevjon-Core)仅提供游戏王卡片查询功能,独立运行时与游戏无关,纯手动输入0风险</p>
+<p>至于外接了其他控制器的情况,那要看控制器是怎么实现的了,例如控制器使用OCR实现,相对内存读取实现风险会低很多(因为特征上来看和主播开OBS直播是类似的的),但是也不是0风险</p>
+<p>不管是基于内存读取还是图像识别/OCR,<strong>本质都是违反K社ToS的第三方软件</strong>,因为K社官方并没有发布任何API接口或SDK(以及配套的许可文档)允许第三方开发类似的工具</p>
+<p><strong>理论上检测很容易,不要以为只读不写/或者截图就安全,如果想查,反作弊程序给相关API下点钩子就能查,甚至暴力一点的会不管你的隐私信息直接用进程名的黑名单查(如TP之流)</strong></p>
+<p>实际上K社管不管那100%是他们内部决定的,只不过目前这个时间点他们没管,参考DL的经验他们可能也懒得管这种非恶意利用</p>
+<p><strong>总之,风险自负</strong></p>
+<h3 id="license">License<a hidden class="anchor" aria-hidden="true" href="#license">#</a></h3>
+<p><a href="https://github.com/RyoLee/Gevjon/blob/master/LICENSE">MIT License</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://blog.xn--7ovq92diups1e.com/tags/ygo/">YGO</a></li>
+      <li><a href="https://blog.xn--7ovq92diups1e.com/tags/master-duel/">Master Duel</a></li>
+      <li><a href="https://blog.xn--7ovq92diups1e.com/tags/md/">MD</a></li>
+      <li><a href="https://blog.xn--7ovq92diups1e.com/tags/%E6%B8%B8%E6%88%8F%E7%8E%8B/">游戏王</a></li>
+      <li><a href="https://blog.xn--7ovq92diups1e.com/tags/%E5%86%B3%E6%96%97%E5%A4%A7%E5%B8%88/">决斗大师</a></li>
+      <li><a href="https://blog.xn--7ovq92diups1e.com/tags/gevjon/">Gevjon</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>RouterOS 通过 OSPF IP分流至 OpenWrt</span>
+  </a>
+</nav>
+
+  </footer><div id="utter-container"></div>
+<script src="https://utteranc.es/client.js" repo='RyoLee/blog-comment'
+    issue-term="pathname" theme='github-light' crossorigin="anonymous"
+    async></script>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://blog.xn--7ovq92diups1e.com">華鳥風月</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a><p id="counter" class="post-meta">
+    <span id="busuanzi_container_site_pv">Site PV: <span id="busuanzi_value_site_pv"></span></span>&nbsp;&nbsp;
+    <span id="busuanzi_container_site_uv">Site UV: <span id="busuanzi_value_site_uv"></span></span>&nbsp;&nbsp;
+    <span id="busuanzi_container_page_pv">Page PV: <span id="busuanzi_value_page_pv"></span></span>
+</p>
+<script>
+    if (window.location.pathname == '/search/') {
+        document.getElementById("counter").parentNode.removeChild(document.getElementById("counter"));
+    } else {
+        document.getElementsByClassName("main")[0].prepend(document.getElementById("counter"));
+    }
+</script>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
