@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>快捷指令 on 華鳥風月</title>
+    <link>https://blog.xn--7ovq92diups1e.com/tags/%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4/</link>
+    <description>Recent content in 快捷指令 on 華鳥風月</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 29 Apr 2022 19:22:17 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>iOS中国大陆工作日闹钟</title>
+      <link>https://blog.xn--7ovq92diups1e.com/post/homelab-cn-working-clock/</link>
+      <pubDate>Fri, 29 Apr 2022 19:22:17 +0800</pubDate>
+      
+      <guid>https://blog.xn--7ovq92diups1e.com/post/homelab-cn-working-clock/</guid>
+      <description>iOS中国大陆工作日闹钟</description>
+      <content:encoded><![CDATA[<p>使用数据来自<a href="https://github.com/RyoLee/cn_working_day">cn_working_day</a>项目</p>
+<p>基于<a href="https://github.com/workalendar/workalendar">workalendar</a> 生成近30天工作日信息</p>
+<p>使用Github action自动更新</p>
+<p>iOS工作日闹钟<a href="https://www.icloud.com/shortcuts/7deacfae183848d2ad2a9047a7329aa1">快捷指令-工作日闹钟</a></p>
+<p>使用该快捷指令需配置2个闹钟,分别对应工作日和休息日,再编辑快捷指令找到如下部分</p>
+<ul>
+<li>[打开]闹钟&quot;工作日&quot;</li>
+<li>将变量[工作日]设为[闹钟]</li>
+<li>[打开]闹钟&quot;休息日&quot;</li>
+<li>将变量[休息日]设为[闹钟]</li>
+</ul>
+<p>因闹钟可能不存在或未配置闹钟名,[打开]闹钟可能会显示异常,请手动修改打开闹钟&quot;工作日&quot;/&ldquo;休息日&quot;为对应闹钟</p>
+<p>如果休息日想睡懒觉不需要闹钟,则删除以下三项</p>
+<ul>
+<li>[打开]闹钟&quot;休息日&rdquo;</li>
+<li>将变量[休息日]设为[闹钟]</li>
+<li>否则(询问是否同时删除&quot;否则&quot;内的操作时,选择&quot;删除操作&quot;)</li>
+</ul>
+]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

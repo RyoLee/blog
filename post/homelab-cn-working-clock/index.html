@@ -5,12 +5,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Projects | 華鳥風月</title>
-<meta name="keywords" content="">
-<meta name="description" content="Ryo 的个人博客.">
+<title>iOS中国大陆工作日闹钟 | 華鳥風月</title>
+<meta name="keywords" content="iOS, 快捷指令">
+<meta name="description" content="iOS中国大陆工作日闹钟">
 <meta name="author" content="Ryo">
-<link rel="canonical" href="https://blog.xn--7ovq92diups1e.com/projects/">
+<link rel="canonical" href="https://blog.xn--7ovq92diups1e.com/post/homelab-cn-working-clock/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.css" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.js" onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://blog.xn--7ovq92diups1e.com/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://blog.xn--7ovq92diups1e.com/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://blog.xn--7ovq92diups1e.com/favicon-32x32.png">
@@ -18,7 +19,6 @@
 <link rel="mask-icon" href="https://blog.xn--7ovq92diups1e.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://blog.xn--7ovq92diups1e.com/projects/index.xml">
 <noscript>
     <style>
         #theme-toggle,
@@ -65,18 +65,74 @@
   gtag('config', 'G-66E8S3GQ2B');
 </script>
 <meta name="referrer" content="no-referrer-when-downgrade">
-<meta property="og:title" content="Projects" />
-<meta property="og:description" content="Ryo 的个人博客." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://blog.xn--7ovq92diups1e.com/projects/" />
+<meta property="og:title" content="iOS中国大陆工作日闹钟" />
+<meta property="og:description" content="iOS中国大陆工作日闹钟" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.xn--7ovq92diups1e.com/post/homelab-cn-working-clock/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-04-29T19:22:17&#43;08:00" />
+<meta property="article:modified_time" content="2022-04-29T19:22:17&#43;08:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Projects"/>
-<meta name="twitter:description" content="Ryo 的个人博客."/>
+<meta name="twitter:title" content="iOS中国大陆工作日闹钟"/>
+<meta name="twitter:description" content="iOS中国大陆工作日闹钟"/>
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://blog.xn--7ovq92diups1e.com/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "iOS中国大陆工作日闹钟",
+      "item": "https://blog.xn--7ovq92diups1e.com/post/homelab-cn-working-clock/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "iOS中国大陆工作日闹钟",
+  "name": "iOS中国大陆工作日闹钟",
+  "description": "iOS中国大陆工作日闹钟",
+  "keywords": [
+    "iOS", "快捷指令"
+  ],
+  "articleBody": "使用数据来自cn_working_day项目\n基于workalendar 生成近30天工作日信息\n使用Github action自动更新\niOS工作日闹钟快捷指令-工作日闹钟\n使用该快捷指令需配置2个闹钟,分别对应工作日和休息日,再编辑快捷指令找到如下部分\n [打开]闹钟\"工作日\" 将变量[工作日]设为[闹钟] [打开]闹钟\"休息日\" 将变量[休息日]设为[闹钟]  因闹钟可能不存在或未配置闹钟名,[打开]闹钟可能会显示异常,请手动修改打开闹钟\"工作日\"/“休息日\"为对应闹钟\n如果休息日想睡懒觉不需要闹钟,则删除以下三项\n [打开]闹钟\"休息日” 将变量[休息日]设为[闹钟] 否则(询问是否同时删除\"否则\"内的操作时,选择\"删除操作\")  ",
+  "wordCount" : "376",
+  "inLanguage": "en",
+  "datePublished": "2022-04-29T19:22:17+08:00",
+  "dateModified": "2022-04-29T19:22:17+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Ryo"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.xn--7ovq92diups1e.com/post/homelab-cn-working-clock/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "華鳥風月",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blog.xn--7ovq92diups1e.com/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
-<body class="list" id="top">
+<body class="" id="top">
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -128,7 +184,7 @@
             </li>
             <li>
                 <a href="https://blog.xn--7ovq92diups1e.com/projects/" title="Projects">
-                    <span class="active">Projects</span>
+                    <span>Projects</span>
                 </a>
             </li>
             <li>
@@ -139,19 +195,62 @@
         </ul>
     </nav>
 </header>
-<main class="main">
-<header class="page-header">
-    <h1>Projects</h1>
-</header>
+<main class="main page">
 
-<ul class="terms-tags">
-    <li>
-        <a href="https://blog.xn--7ovq92diups1e.com/projects/gevjon/">Gevjon <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://blog.xn--7ovq92diups1e.com/projects/homelab/">homelab <sup><strong><sup>2</sup></strong></sup> </a>
-    </li>
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://blog.xn--7ovq92diups1e.com">Home</a>&nbsp;»&nbsp;<a href="https://blog.xn--7ovq92diups1e.com/post/">Posts</a></div>
+    <h1 class="post-title">
+      iOS中国大陆工作日闹钟
+    </h1>
+    <div class="post-description">
+      iOS中国大陆工作日闹钟
+    </div>
+    <div class="post-meta"><span title='2022-04-29 19:22:17 +0800 CST'>2022-04-29</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;376 words&nbsp;·&nbsp;Ryo&nbsp;|&nbsp;<a href="https://github.com/RyoLee/blog/tree/master/content/post/homelab-cn-working-clock.md" rel="noopener noreferrer" target="_blank">Suggest Changes</a>
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>使用数据来自<a href="https://github.com/RyoLee/cn_working_day">cn_working_day</a>项目</p>
+<p>基于<a href="https://github.com/workalendar/workalendar">workalendar</a> 生成近30天工作日信息</p>
+<p>使用Github action自动更新</p>
+<p>iOS工作日闹钟<a href="https://www.icloud.com/shortcuts/7deacfae183848d2ad2a9047a7329aa1">快捷指令-工作日闹钟</a></p>
+<p>使用该快捷指令需配置2个闹钟,分别对应工作日和休息日,再编辑快捷指令找到如下部分</p>
+<ul>
+<li>[打开]闹钟&quot;工作日&quot;</li>
+<li>将变量[工作日]设为[闹钟]</li>
+<li>[打开]闹钟&quot;休息日&quot;</li>
+<li>将变量[休息日]设为[闹钟]</li>
 </ul>
+<p>因闹钟可能不存在或未配置闹钟名,[打开]闹钟可能会显示异常,请手动修改打开闹钟&quot;工作日&quot;/&ldquo;休息日&quot;为对应闹钟</p>
+<p>如果休息日想睡懒觉不需要闹钟,则删除以下三项</p>
+<ul>
+<li>[打开]闹钟&quot;休息日&rdquo;</li>
+<li>将变量[休息日]设为[闹钟]</li>
+<li>否则(询问是否同时删除&quot;否则&quot;内的操作时,选择&quot;删除操作&quot;)</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://blog.xn--7ovq92diups1e.com/tags/ios/">iOS</a></li>
+      <li><a href="https://blog.xn--7ovq92diups1e.com/tags/%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4/">快捷指令</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://blog.xn--7ovq92diups1e.com/post/gevjon-home/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>Gevjon -- YGO Master Duel工具</span>
+  </a>
+</nav>
+
+  </footer><div id="utter-container"></div>
+<script src="https://utteranc.es/client.js" repo='RyoLee/blog-comment'
+    issue-term="pathname" theme='github-light' crossorigin="anonymous"
+    async></script>
+</article>
     </main>
     
 <footer class="footer">
@@ -232,6 +331,53 @@
         }
     })
 
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
 </script>
 </body>
 
