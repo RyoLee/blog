@@ -6,18 +6,18 @@
     <description>Recent content in iOS on 華鳥風月</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 29 Apr 2022 19:22:17 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/ios/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 30 Apr 2022 11:37:01 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/ios/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>iOS中国大陆工作日闹钟</title>
       <link>https://blog.xn--7ovq92diups1e.com/post/homelab-cn-working-clock/</link>
-      <pubDate>Fri, 29 Apr 2022 19:22:17 +0800</pubDate>
+      <pubDate>Sat, 30 Apr 2022 11:37:01 +0800</pubDate>
       
       <guid>https://blog.xn--7ovq92diups1e.com/post/homelab-cn-working-clock/</guid>
       <description>iOS中国大陆工作日闹钟</description>
       <content:encoded><![CDATA[<p>使用数据来自<a href="https://github.com/RyoLee/cn_working_day">cn_working_day</a>项目</p>
 <p>基于<a href="https://github.com/workalendar/workalendar">workalendar</a> 生成近30天工作日信息</p>
 <p>使用Github action自动更新</p>
-<p>iOS工作日闹钟<a href="https://www.icloud.com/shortcuts/7deacfae183848d2ad2a9047a7329aa1">快捷指令-工作日闹钟</a></p>
+<p>iOS工作日闹钟<a href="https://www.icloud.com/shortcuts/20c84b95071d4ac489f59dc8307ba279">快捷指令-工作日闹钟</a></p>
 <p>使用该快捷指令需配置2个闹钟,分别对应工作日和休息日,再编辑快捷指令找到如下部分</p>
 <ul>
 <li>[打开]闹钟&quot;工作日&quot;</li>
