@@ -6,18 +6,18 @@
     <description>Recent content in Posts on 華鳥風月</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 17 May 2022 20:47:56 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 17 May 2022 20:53:25 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RouterOS 通过 OSPF IP分流非CN流量</title>
       <link>https://blog.xn--7ovq92diups1e.com/post/homelab-no-cn-routes/</link>
-      <pubDate>Tue, 17 May 2022 20:47:56 +0800</pubDate>
+      <pubDate>Tue, 17 May 2022 20:53:25 +0800</pubDate>
       
       <guid>https://blog.xn--7ovq92diups1e.com/post/homelab-no-cn-routes/</guid>
       <description>ROS ip 分流方案</description>
-      <content:encoded><![CDATA[<h3 id="旧-同网段分流openwrt方案">旧: 同网段分流openwrt方案</h3>
+      <content:encoded><![CDATA[<h4 id="旧-同网段分流openwrt方案">旧: 同网段分流openwrt方案</h4>
 <p>见<a href="https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/">RouterOS 通过 OSPF IP分流至 OpenWrt</a></p>
 <p>零散问题比较多,基于以上测试经验改进出新方案,非CN IP流量出口改为使用运行debian的一台NUC</p>
-<h3 id="相关硬件">相关硬件</h3>
+<h4 id="相关硬件">相关硬件</h4>
 <ul>
 <li>
 <p>Mikrotik AC^2 (ros stable 7.2.3*)</p>
@@ -27,7 +27,7 @@
 <p>*<em>该版本OSPF似乎有bug,测试邻居离线时出现过一次不能自动删除路由,建议还是LT版本</em></p>
 </li>
 </ul>
-<h3 id="网络结构">网络结构</h3>
+<h4 id="网络结构">网络结构</h4>
 <div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
@@ -54,7 +54,7 @@
 <li>192.168.1.0/24 &ndash;普通设备网段</li>
 <li>192.168.255.0/24 &ndash;NUC网段</li>
 </ul>
-<h3 id="基础防火墙配置">基础防火墙配置</h3>
+<h4 id="基础防火墙配置">基础防火墙配置</h4>
 <p>不建议无脑抄,大部分配置有comment,建议按需添加</p>
 <p>LAN包含lan桥ether5,WAN包括pppoe-out</p>
 <details>
@@ -186,8 +186,8 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div></details>
-<h3 id="dns解析">DNS解析</h3>
-<h4 id="ros配置">ROS配置</h4>
+<h4 id="dns解析">DNS解析</h4>
+<h5 id="ros配置">ROS配置</h5>
 <p>使用netwatch检查NUC状态,离线时自动将dns切换为公共dns</p>
 <div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -236,7 +236,7 @@
 </span></span><span style="display:flex;"><span>    to-ports=53
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="debian配置">Debian配置</h4>
+</div><h5 id="debian配置">Debian配置</h5>
 <p>SmartDNS分流解析</p>
 <div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
