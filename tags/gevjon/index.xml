@@ -6,35 +6,35 @@
     <description>Recent content in Gevjon on 華鳥風月</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 23 Apr 2022 16:00:26 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/gevjon/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 May 2022 17:33:18 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/gevjon/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Gevjon -- YGO Master Duel工具</title>
       <link>https://blog.xn--7ovq92diups1e.com/post/gevjon-home/</link>
-      <pubDate>Sat, 23 Apr 2022 16:00:26 +0800</pubDate>
+      <pubDate>Wed, 18 May 2022 17:33:18 +0800</pubDate>
       
       <guid>https://blog.xn--7ovq92diups1e.com/post/gevjon-home/</guid>
       <description>支持识别控制器调用的卡查工具</description>
       <content:encoded><![CDATA[<p>Gevjon项目由核心(Core)与控制器(Observer)组成,核心可独立使用</p>
 <p>组合使用时文件夹结构如下</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Gevjon
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Gevjon
 </span></span><span style="display:flex;"><span>├── Gevjon-Observer.pyw
 </span></span><span style="display:flex;"><span>├── LICENSE
 </span></span><span style="display:flex;"><span>├── README.md
@@ -53,10 +53,10 @@
 </div><h3 id="core">Core</h3>
 <p>本项目为Gevjon项目组件core组件,仅提供卡查功能</p>
 <h4 id="界面操作">界面操作</h4>
-<p>查询框输入查询内容后回车进行查询</p>
+<p>查询框输入查询内容后回车(或Ctrl+回车)进行查询,支持中日英三语(包括简中官方译名和日文ruby注音)</p>
 <ul>
-<li>ID查询为准确查询</li>
-<li>卡名查询为模糊查询,支持中日英三语</li>
+<li>模糊查询: Enter</li>
+<li>准确查询: Ctrl+Enter</li>
 </ul>
 <h4 id="下载方式">下载方式</h4>
 <p>本项目使用Github Actions编译发布,构建完成后会自动发布到Release与<a href="https://github.com/RyoLee/Gevjon/tree/gh-pages">gh-pages</a>分支,并更新jsDeliver缓存</p>
@@ -81,42 +81,72 @@
 <p>使用如下命名管道接收控制命令</p>
 <p><code>\\.\pipe\GevjonCore</code></p>
 <h4 id="控制命令格式">控制命令格式</h4>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{<span style="color:#000080">&#34;id&#34;</span>:<span style="color:#d14">&#34;10000&#34;</span>,<span style="color:#000080">&#34;name&#34;</span>:<span style="color:#d14">&#34;万物创世龙&#34;</span>,<span style="color:#000080">&#34;mode&#34;</span>:<span style="color:#d14">&#34;name&#34;</span>,<span style="color:#000080">&#34;desc&#34;</span>:<span style="color:#d14">&#34;测试文本&#34;</span>}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
+<ul>
 <li>mode: 查询模式
 <ul>
-<li>id: id搜索模式</li>
-<li>name: 卡名搜索模式</li>
+<li>id: id搜索模式  //调整中</li>
+<li>name: 卡名搜索模式 //调整中</li>
 <li>issued: 控制器下发模式</li>
 </ul>
 </li>
 <li>id: YGOPro版本卡片ID</li>
 <li>name: 卡名,支持简单的模糊搜索,比如&quot;C107&quot;可查询到卡片&quot;混沌No.107 超银河眼时空龙&quot;</li>
-<li>desc: 卡效文本,仅控制器下发模式生效,使用下发模式时,不会使用内部数据生成卡名,即全文显示为下发内容</li>
+<li>data: 卡片数据,仅控制器下发模式生效,使用下发模式时,不会使用内部数据生成卡名,字段类型为string,内容为</li>
 </ul>
-<p>可使用Github项目目录下PipeClient.py进行测试,请注意json需转义</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\PipeClient.py <span style="color:#d14">&#34;{\&#34;</span>id\<span style="color:#d14">&#34;:\&#34;</span>\<span style="color:#d14">&#34;,\&#34;</span>name\<span style="color:#d14">&#34;:\&#34;</span>107\<span style="color:#d14">&#34;,\&#34;</span>mode\<span style="color:#d14">&#34;:\&#34;</span>name\<span style="color:#d14">&#34;}&#34;</span>
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">&#34;cid&#34;</span>: <span style="color:#ff0;font-weight:bold">11134</span>,
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">&#34;id&#34;</span>: <span style="color:#ff0;font-weight:bold">94415058</span>,
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">&#34;cn_name&#34;</span>: <span style="color:#0ff;font-weight:bold">&#34;星读之魔术师&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">&#34;cnocg_n&#34;</span>: <span style="color:#0ff;font-weight:bold">&#34;星读魔术师&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">&#34;jp_ruby&#34;</span>: <span style="color:#0ff;font-weight:bold">&#34;ほしよみのまじゅつし&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">&#34;jp_name&#34;</span>: <span style="color:#0ff;font-weight:bold">&#34;星読みの魔術師&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">&#34;en_name&#34;</span>: <span style="color:#0ff;font-weight:bold">&#34;Stargazer Magician&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">&#34;text&#34;</span>: {
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">&#34;types&#34;</span>: <span style="color:#0ff;font-weight:bold">&#34;[怪兽|效果|灵摆] 魔法师/暗\n[★5] 1200/2400  1/1&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">&#34;pdesc&#34;</span>: <span style="color:#0ff;font-weight:bold">&#34;①：自己的灵摆怪兽进行战斗的场合，对方直到伤害步骤结束时魔法卡不能发动。\n②：另一边的自己的灵摆区域没有「魔术师」卡或者「异色眼」卡存在的场合，这张卡的灵摆刻度变成4。&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">&#34;desc&#34;</span>: <span style="color:#0ff;font-weight:bold">&#34;①：1回合1次，只让自己场上的灵摆怪兽1只因对方的效果回到自己手卡时才能发动。那1只同名怪兽从手卡特殊召唤。&#34;</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="控制器">控制器</h3>
+</div><p>可使用项目目录下PipeClient.py进行测试,请注意json需转义</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\PipeClient.py <span style="color:#0ff;font-weight:bold">&#34;{\&#34;</span>id\<span style="color:#0ff;font-weight:bold">&#34;:\&#34;</span>\<span style="color:#0ff;font-weight:bold">&#34;,\&#34;</span>name\<span style="color:#0ff;font-weight:bold">&#34;:\&#34;</span>107\<span style="color:#0ff;font-weight:bold">&#34;,\&#34;</span>mode\<span style="color:#0ff;font-weight:bold">&#34;:\&#34;</span>name\<span style="color:#0ff;font-weight:bold">&#34;}&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="数据更新">数据更新</h4>
+<p><del>数据来源为<a href="https://github.com/mycard/ygopro-database">mycard/ygopro-database (github.com)</a>,后续更新请自行下载，将locales文件夹拖放到DB/Cover.py脚本上生成data.json数据文件</del></p>
+<p>v1.3.0以后版本数据来源为<a href="https://ygocdb.com/">百鸽</a>, <del>由于该来源api暂未提供版本跟踪相关信息,暂不提供自动更新检查(后续视情况增加),</del> 已支持自动更新,感谢<a href="https://github.com/mercury233">@mercury233</a></p>
+<h3 id="控制器">控制器</h3>
 <p>项目见 <a href="https://github.com/RyoLee/Gevjon-Observer">Gevjon-Observer</a></p>
 <p>不同分支对应不同实现，以分支Readme文档为准</p>
 <h4 id="python-内存读取实现">Python 内存读取实现</h4>
 <p>本分支为Python内存读取实现</p>
 <p>基于<a href="https://github.com/SkywalkerJi/mdt">SkywalkerJi/mdt: Yu-Gi-Oh! Master Duel (github.com)</a></p>
-<p>请下载<a href="https://github.com/RyoLee/Gevjon/">RyoLee/Gevjon</a>并解压至core文件夹后,直接启动控制器(Gevjon-Observer.pyw)即可,核心会自动启动</p>
+<p><del>请下载<a href="https://github.com/RyoLee/Gevjon/">RyoLee/Gevjon</a>并解压至core文件夹后,直接启动控制器(Gevjon-Observer.pyw)即可,核心会自动启动</del></p>
+<p>当前版本Release已打包core</p>
 <h3 id="风险声明">风险声明</h3>
 <p>本程序(Gevjon-Core)仅提供游戏王卡片查询功能,独立运行时与游戏无关,纯手动输入0风险</p>
 <p>至于外接了其他控制器的情况,那要看控制器是怎么实现的了,例如控制器使用OCR实现,相对内存读取实现风险会低很多(因为特征上来看和主播开OBS直播是类似的的),但是也不是0风险</p>
