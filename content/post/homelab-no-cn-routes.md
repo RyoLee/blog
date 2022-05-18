@@ -6,19 +6,19 @@ tags: ["RouterOS","ROS", "Debian","OSPF","BRID","ip分流"]
 projects: ["Homelab"]
 ---
 
-#### 旧: 同网段分流openwrt方案
+### 旧: 同网段分流openwrt方案
 
-见[RouterOS 通过 OSPF IP分流至 OpenWrt](https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/)
+见前文[RouterOS 通过 OSPF IP分流至 OpenWrt](https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/)
 
 零散问题比较多,基于以上测试经验改进出新方案,非CN IP流量出口改为使用运行debian的一台NUC
 
-#### 相关硬件
+### 相关硬件
 - Mikrotik AC^2 (ros stable 7.2.3*)
 - NUC5i5MYBE (debian 11)
 
     **该版本OSPF似乎有bug,测试邻居离线时出现过一次不能自动删除路由,建议还是LT版本*
 
-#### 网络结构
+### 网络结构
 ```
 AC^2--ETH1(192.168.0.254)--(192.168.0.1)光猫--Internet
     |
@@ -33,7 +33,7 @@ AC^2--ETH1(192.168.0.254)--(192.168.0.1)光猫--Internet
 - 192.168.0.0/24 --光猫/WAN口网段
 - 192.168.1.0/24 --普通设备网段
 - 192.168.255.0/24 --NUC网段
-#### 基础防火墙配置
+### 基础防火墙配置
 不建议无脑抄,大部分配置有comment,建议按需添加
  
 LAN包含lan桥ether5,WAN包括pppoe-out
@@ -104,9 +104,9 @@ add action=masquerade chain=srcnat comment="defconf: masquerade" \
 ```
 </details>
 
-#### DNS解析
+### DNS解析
 
-##### ROS配置
+#### ROS配置
 使用netwatch检查NUC状态,离线时自动将dns切换为公共dns
 ```ros
 /system script
@@ -130,7 +130,7 @@ add action=dst-nat chain=dstnat comment="Hijacking for DNS" dst-port=53 \
     protocol=udp src-address=192.168.1.0/24 to-addresses=192.168.1.1 \
     to-ports=53
 ```
-##### Debian配置
+#### Debian配置
 SmartDNS分流解析
 ```
 apt install smartdns
@@ -158,9 +158,9 @@ conf-file /etc/smartdns/gfw.conf
 ```
 最终效果list内走223.5.5.5/119.29.29.29,list外走DoH
 
-#### OSPF路由
+### OSPF路由
 
-##### ROS配置
+#### ROS配置
 添加防火墙放行
 ```ros
 /ip firewall mangle
@@ -187,7 +187,7 @@ add area=sgw disabled=no interfaces=ether5
 add action=lookup disabled=no routing-mark=bypass table=bypass
 add action=lookup disabled=no table=main
 ```
-##### Debian配置
+#### Debian配置
 安装bird2
 ```
 apt install bird2
@@ -240,5 +240,5 @@ protocol ospf v2 {
 ```
 * * * * * [ $(curl --connect-timeout 5 --interface utun -w "%{http_code}" -s https://www.google.com/generate_204) -eq 204 ] && { /etc/init.d/bird status|grep Active|grep -q running|| /etc/init.d/bird restart;} || /etc/init.d/bird stop
 ```
-#### ROS DDNS失效问题
+### ROS DDNS失效问题
 见前文[ros-ddns失效](https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/#ros-ddns%e5%a4%b1%e6%95%88)
