@@ -6,6 +6,9 @@ tags: ["RouterOS","ROS", "OpenWrt","OP","OSPF","BRID","ip分流"]
 projects: ["Homelab"]
 ---
 
+### 更新
+- 2022-05-17 修改后的方案(带配置) [RouterOS 通过 OSPF IP分流非CN流量](https://blog.xn--7ovq92diups1e.com/post/homelab-no-cn-routes/)
+
 ### 组网参考
 
 Reflist:
