@@ -103,13 +103,11 @@ markup:
     renderer:
       unsafe: true
   highlight:
-    # anchorLineNos: true
     codeFences: true
     guessSyntax: true
     lineNos: true
     # noClasses: false
-    # style: monokai
-    style: github
+    style: github-gist
 
 enableGitInfo: true
 frontmatter:

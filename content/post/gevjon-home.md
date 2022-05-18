@@ -35,10 +35,10 @@ Gevjon
 
 #### 界面操作
 
-查询框输入查询内容后回车进行查询
+查询框输入查询内容后回车(或Ctrl+回车)进行查询,支持中日英三语(包括简中官方译名和日文ruby注音)
 
-- ID查询为准确查询
-- 卡名查询为模糊查询,支持中日英三语
+- 模糊查询: Enter
+- 准确查询: Ctrl+Enter
 
 #### 下载方式
 
@@ -66,23 +66,40 @@ Gevjon
 
 #### 控制命令格式
 
-```json
-{"id":"10000","name":"万物创世龙","mode":"name","desc":"测试文本"}
-```
-
 - mode: 查询模式
-  - id: id搜索模式
-  - name: 卡名搜索模式
+  - id: id搜索模式  //调整中
+  - name: 卡名搜索模式 //调整中
   - issued: 控制器下发模式
 - id: YGOPro版本卡片ID
 - name: 卡名,支持简单的模糊搜索,比如"C107"可查询到卡片"混沌No.107 超银河眼时空龙"
-- desc: 卡效文本,仅控制器下发模式生效,使用下发模式时,不会使用内部数据生成卡名,即全文显示为下发内容
+- data: 卡片数据,仅控制器下发模式生效,使用下发模式时,不会使用内部数据生成卡名,字段类型为string,内容为
+```json
+{
+	"cid": 11134,
+	"id": 94415058,
+	"cn_name": "星读之魔术师",
+	"cnocg_n": "星读魔术师",
+	"jp_ruby": "ほしよみのまじゅつし",
+	"jp_name": "星読みの魔術師",
+	"en_name": "Stargazer Magician",
+	"text": {
+		"types": "[怪兽|效果|灵摆] 魔法师/暗\n[★5] 1200/2400  1/1",
+		"pdesc": "①：自己的灵摆怪兽进行战斗的场合，对方直到伤害步骤结束时魔法卡不能发动。\n②：另一边的自己的灵摆区域没有「魔术师」卡或者「异色眼」卡存在的场合，这张卡的灵摆刻度变成4。",
+		"desc": "①：1回合1次，只让自己场上的灵摆怪兽1只因对方的效果回到自己手卡时才能发动。那1只同名怪兽从手卡特殊召唤。"
+	}
+}
+```
 
-可使用Github项目目录下PipeClient.py进行测试,请注意json需转义
+可使用项目目录下PipeClient.py进行测试,请注意json需转义
 
 ```powershell
 .\PipeClient.py "{\"id\":\"\",\"name\":\"107\",\"mode\":\"name\"}"
 ```
+#### 数据更新
+
+~~数据来源为[mycard/ygopro-database (github.com)](https://github.com/mycard/ygopro-database),后续更新请自行下载，将locales文件夹拖放到DB/Cover.py脚本上生成data.json数据文件~~
+
+v1.3.0以后版本数据来源为[百鸽](https://ygocdb.com/), ~~由于该来源api暂未提供版本跟踪相关信息,暂不提供自动更新检查(后续视情况增加),~~ 已支持自动更新,感谢[@mercury233](https://github.com/mercury233)
 
 ### 控制器
 
@@ -96,7 +113,9 @@ Gevjon
 
 基于[SkywalkerJi/mdt: Yu-Gi-Oh! Master Duel (github.com)](https://github.com/SkywalkerJi/mdt)
 
-请下载[RyoLee/Gevjon](https://github.com/RyoLee/Gevjon/)并解压至core文件夹后,直接启动控制器(Gevjon-Observer.pyw)即可,核心会自动启动
+~~请下载[RyoLee/Gevjon](https://github.com/RyoLee/Gevjon/)并解压至core文件夹后,直接启动控制器(Gevjon-Observer.pyw)即可,核心会自动启动~~
+
+当前版本Release已打包core
 
 ### 风险声明
 

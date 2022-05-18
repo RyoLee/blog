@@ -40,7 +40,7 @@ LAN包含lan桥ether5,WAN包括pppoe-out
 <details>
   <summary>ROS IPV4防火墙(较长已折叠)</summary>
 
-```ros
+```
 /ip firewall address-list
 add address=0.0.0.0/8 comment="defconf: RFC6890" list=no_forward_ipv4
 add address=169.254.0.0/16 comment="defconf: RFC6890" list=no_forward_ipv4
@@ -108,7 +108,7 @@ add action=masquerade chain=srcnat comment="defconf: masquerade" \
 
 #### ROS配置
 使用netwatch检查NUC状态,离线时自动将dns切换为公共dns
-```ros
+```routeros
 /system script
 add dont-require-permissions=yes name=use-default-dns owner=admin policy=\
     ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon source="/\
@@ -123,8 +123,8 @@ add dont-require-permissions=yes name=use-sgw-dns owner=admin policy=\
 /tool netwatch
 add down-script=use-default-dns host=192.168.255.254 interval=30s up-script=use-sgw-dns
 ```
-(可选)192.168.1.0/24网段dns劫持
-```ros
+#### (可选)192.168.1.0/24网段dns劫持
+```routeros
 /ip firewall nat
 add action=dst-nat chain=dstnat comment="Hijacking for DNS" dst-port=53 \
     protocol=udp src-address=192.168.1.0/24 to-addresses=192.168.1.1 \
@@ -132,11 +132,11 @@ add action=dst-nat chain=dstnat comment="Hijacking for DNS" dst-port=53 \
 ```
 #### Debian配置
 SmartDNS分流解析
-```
+```bash
 apt install smartdns
 ```
 配置/etc/smartdns/smartdns.conf 如下
-```
+```bash
 bind :53
 cache-size 0
 prefetch-domain no
@@ -153,7 +153,7 @@ server-https https://cloudflare-dns.com/dns-query -blacklist-ip -group GFW -excl
 conf-file /etc/smartdns/gfw.conf
 ```
 /etc/smartdns/gfw.conf 使用crontab更新
-```
+```bash
 0 2 * * * curl -s https://raw.githubusercontents.com/RyoLee/gfwlist2smartdns/master/run.sh | bash -s -- -o /etc/smartdns/gfw.conf && /etc/init.d/smartdns reload
 ```
 最终效果list内走223.5.5.5/119.29.29.29,list外走DoH
@@ -162,7 +162,7 @@ conf-file /etc/smartdns/gfw.conf
 
 #### ROS配置
 添加防火墙放行
-```ros
+```routeros
 /ip firewall mangle
 add action=mark-routing chain=prerouting new-routing-mark=main passthrough=\
     yes protocol=ospf
@@ -170,7 +170,7 @@ add action=mark-routing chain=prerouting dst-address-list=!private \
     in-interface=ether5 new-routing-mark=bypass passthrough=yes
 ```
 Bypass路由表 & OSPF
-```ros
+```routeros
 /routing ospf instance
 add disabled=no name=sgw router-id=192.168.255.1 routing-table=main
 /routing ospf area
@@ -189,7 +189,7 @@ add action=lookup disabled=no table=main
 ```
 #### Debian配置
 安装bird2
-```
+```bash
 apt install bird2
 ```
 
@@ -231,13 +231,13 @@ protocol ospf v2 {
 非CN流量出口为虚拟设备为utun,若使用TProxy则配置为对应的以太网网卡(如本例中enp0s25)
 
 /etc/bird/routes4.conf 使用crontab更新
-```
+```bash
 0 2 * * * curl -s https://api.xn--7ovq92diups1e.com/ncr?device=utun  -o /etc/bird/routes4.conf
 0 3 */1 * * /etc/init.d/bird reload
 ```
 
 心跳检查,若google 204服务检查失败则停止bird触发回落
-```
+```bash
 * * * * * [ $(curl --connect-timeout 5 --interface utun -w "%{http_code}" -s https://www.google.com/generate_204) -eq 204 ] && { /etc/init.d/bird status|grep Active|grep -q running|| /etc/init.d/bird restart;} || /etc/init.d/bird stop
 ```
 ### ROS DDNS失效问题

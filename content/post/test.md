@@ -13,3 +13,8 @@ Test line
 ## TestPage
 
 测试页
+```java
+public V put(K key, V value) {
+    return putVal(hash(key), key, value, false, true);
+}
+```
