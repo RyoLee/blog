@@ -6,7 +6,314 @@
     <description>Recent content in OSPF on 華鳥風月</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 17 May 2022 20:53:25 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/ospf/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 May 2022 10:51:50 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/ospf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RouterOS 通过 OSPF IP分流至 OpenWrt</title>
+      <link>https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/</link>
+      <pubDate>Wed, 18 May 2022 10:51:50 +0800</pubDate>
+      
+      <guid>https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/</guid>
+      <description>ROS ip 分流方案</description>
+      <content:encoded><![CDATA[<h3 id="更新">更新</h3>
+<ul>
+<li>2022-05-17 修改后的方案(带配置) <a href="https://blog.xn--7ovq92diups1e.com/post/homelab-no-cn-routes/">RouterOS 通过 OSPF IP分流非CN流量</a></li>
+</ul>
+<h3 id="组网参考">组网参考</h3>
+<p>Reflist:</p>
+<ul>
+<li><a href="https://www.truenasscale.com/2021/12/13/195.html">使用RouterOS，OSPF 和OpenWRT给国内外 IP 分流</a></li>
+<li><a href="https://www.kn1f4.com/news/767.html">RouterOS路由OSPF协议+树莓派分流国外流量</a></li>
+</ul>
+<p>遇到一些问题记录一下</p>
+<h3 id="ros-ddns失效">ROS DDNS失效</h3>
+<p>表现: 域名解析ip不正确</p>
+<p>原因: 分流后ROS内置ip cloud(DDNS)流量同样会被指向OpenWrt导致错误,尝试打标签bypass对应udp流量未成功,因为有公网IP所以直接改为通过域名服务商API更新对应解析为PPPOE接口地址</p>
+<p>解决: 修改以下脚本中&quot;CloudFlare variables&quot;段内容即可.原始脚本见<a href="https://github.com/mike6715b/Mikrotik_CF_DDNS">Mikrotik_CF_DDNS</a></p>
+<details>
+  <summary>Cloudflare DDNS ROS脚本(IPV4)</summary>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 64
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 65
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 66
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 67
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 68
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 69
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 70
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 71
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 72
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 73
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 74
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 75
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 76
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 77
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 78
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 79
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 80
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 81
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 82
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 83
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 84
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 85
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 86
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 87
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 88
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 89
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 90
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 91
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 92
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 93
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 94
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 95
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 96
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 97
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 98
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 99
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">100
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">101
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">102
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">103
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">104
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">105
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">106
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">107
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">108
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">109
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">110
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">111
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">112
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">113
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">114
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">115
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">116
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">117
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">118
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">119
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">120
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>#########################################################################
+</span></span><span style="display:flex;"><span>#         ==================================================            #
+</span></span><span style="display:flex;"><span>#         $ Mikrotik RouterOS update script for CloudFlare $            #
+</span></span><span style="display:flex;"><span>#         ==================================================            #
+</span></span><span style="display:flex;"><span>#                                                                       #
+</span></span><span style="display:flex;"><span># - You need a CloudFlare account &amp; api key (look under settings),      #
+</span></span><span style="display:flex;"><span>#   a zone and A record in it                                           #
+</span></span><span style="display:flex;"><span># - All variables in first section are obvious,                         #
+</span></span><span style="display:flex;"><span>#   except CFid and CFzoneid                                            #
+</span></span><span style="display:flex;"><span># - Obtain CFzoneid from Cloudflare Dashboard,                          #
+</span></span><span style="display:flex;"><span>#   on Overview tab scroll down                                         # 
+</span></span><span style="display:flex;"><span>#   To obtain CFid use following command in any unix shell:             #
+</span></span><span style="display:flex;"><span>#    curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/YOUR_ZONE_ID/dns_records?name=YOUR_DOMAIN&#34; -H &#34;Authorization:Bearer $CFtkn&#34; -H &#34;Content-Type: application/json&#34; | python -mjson.tool
+</span></span><span style="display:flex;"><span># - You can use my Postman script to get those variables                #
+</span></span><span style="display:flex;"><span># - Enable CFDebug if needed - it&#39;ll print some info to logs            #
+</span></span><span style="display:flex;"><span># - Enable CFcloud if you don&#39;t get a public IP on interface            #
+</span></span><span style="display:flex;"><span># - Put script under /system scripts giving &#34;read,write,ftp&#34; policy access.       #
+</span></span><span style="display:flex;"><span>#   For 6.29 and older &#34;test&#34; policy is also needed.                    #
+</span></span><span style="display:flex;"><span># - Add script to /system scheduler using it&#39;s name in &#34;on-event&#34;       #
+</span></span><span style="display:flex;"><span># - Requires at least RouterOS 6.44beta75 for multiple header support   #
+</span></span><span style="display:flex;"><span>#                                                                       #
+</span></span><span style="display:flex;"><span>#              Credits for Samuel Tegenfeldt, CC BY-SA 3.0              #
+</span></span><span style="display:flex;"><span>#                        Modified by kiler129                           #
+</span></span><span style="display:flex;"><span>#                        Modified by viritt                             #
+</span></span><span style="display:flex;"><span>#                        Modified by asuna                              #
+</span></span><span style="display:flex;"><span>#                        Modified by mike6715b                          #
+</span></span><span style="display:flex;"><span>#                                                                       #
+</span></span><span style="display:flex;"><span>#               Tested and working as of February 22, 2021              #
+</span></span><span style="display:flex;"><span>#########################################################################
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>################# CloudFlare variables #################
+</span></span><span style="display:flex;"><span>:local CFDebug &#34;false&#34;
+</span></span><span style="display:flex;"><span>:local CFcloud &#34;false&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>:global WANInterface &#34;[YOUR_WAN_INTERFACE_NAME]&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>:local CFdomain &#34;[YOUR_DOMAIN]&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>:local CFtkn &#34;[YOUR_CF_TOKEN]&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>:local CFzoneid &#34;[YOUR_CF_ZONE_ID]&#34;
+</span></span><span style="display:flex;"><span>:local CFid &#34;[YOUR_CF_ID]&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>:local CFrecordType &#34;&#34;
+</span></span><span style="display:flex;"><span>:set CFrecordType &#34;A&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>:local CFrecordTTL &#34;&#34;
+</span></span><span style="display:flex;"><span>:set CFrecordTTL &#34;60&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>#########################################################################
+</span></span><span style="display:flex;"><span>########################  DO NOT EDIT BELOW  ############################
+</span></span><span style="display:flex;"><span>#########################################################################
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>:log info &#34;Updating $CFDomain ...&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>################# Internal variables #################
+</span></span><span style="display:flex;"><span>:local previousIP &#34;&#34;
+</span></span><span style="display:flex;"><span>:global WANip &#34;&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>################# Build CF API Url (v4) #################
+</span></span><span style="display:flex;"><span>:local CFurl &#34;https://api.cloudflare.com/client/v4/zones/&#34;
+</span></span><span style="display:flex;"><span>:set CFurl ($CFurl . &#34;$CFzoneid/dns_records/$CFid&#34;);
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>################# Get or set previous IP-variables #################
+</span></span><span style="display:flex;"><span>:if ($CFcloud = &#34;true&#34;) do={
+</span></span><span style="display:flex;"><span>    :set WANip [/ip cloud get public-address]
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>:if ($CFcloud = &#34;false&#34;) do={
+</span></span><span style="display:flex;"><span>    :local currentIP [/ip address get [/ip address find interface=$WANInterface ] address];
+</span></span><span style="display:flex;"><span>    :set WANip [:pick $currentIP 0 [:find $currentIP &#34;/&#34;]];
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>:if ([/file find name=ddns.tmp.txt] = &#34;&#34;) do={
+</span></span><span style="display:flex;"><span>    :log error &#34;No previous ip address file found, createing...&#34;
+</span></span><span style="display:flex;"><span>    :set previousIP $WANip;
+</span></span><span style="display:flex;"><span>    :execute script=&#34;:put $WANip&#34; file=&#34;ddns.tmp&#34;;
+</span></span><span style="display:flex;"><span>    :log info (&#34;CF: Updating CF, setting $CFDomain = $WANip&#34;)
+</span></span><span style="display:flex;"><span>    /tool fetch http-method=put mode=https output=none url=&#34;$CFurl&#34; http-header-field=&#34;Authorization:Bearer $CFtkn,content-type:application/json&#34; http-data=&#34;{\&#34;type\&#34;:\&#34;$CFrecordType\&#34;,\&#34;name\&#34;:\&#34;$CFdomain\&#34;,\&#34;ttl\&#34;:$CFrecordTTL,\&#34;content\&#34;:\&#34;$WANip\&#34;}&#34;
+</span></span><span style="display:flex;"><span>    :error message=&#34;No previous ip address file found.&#34;
+</span></span><span style="display:flex;"><span>} else={
+</span></span><span style="display:flex;"><span>    :if ( [/file get [/file find name=ddns.tmp.txt] size] &gt; 0 ) do={ 
+</span></span><span style="display:flex;"><span>    :global content [/file get [/file find name=&#34;ddns.tmp.txt&#34;] contents] ;
+</span></span><span style="display:flex;"><span>    :global contentLen [ :len $content ] ;  
+</span></span><span style="display:flex;"><span>    :global lineEnd 0;
+</span></span><span style="display:flex;"><span>    :global line &#34;&#34;;
+</span></span><span style="display:flex;"><span>    :global lastEnd 0;   
+</span></span><span style="display:flex;"><span>            :set lineEnd [:find $content &#34;\n&#34; $lastEnd ] ;
+</span></span><span style="display:flex;"><span>            :set line [:pick $content $lastEnd $lineEnd] ;
+</span></span><span style="display:flex;"><span>            :set lastEnd ( $lineEnd + 1 ) ;   
+</span></span><span style="display:flex;"><span>            :if ( [:pick $line 0 1] != &#34;#&#34; ) do={   
+</span></span><span style="display:flex;"><span>                #:local previousIP [:pick $line 0 $lineEnd ]
+</span></span><span style="display:flex;"><span>                :set previousIP [:pick $line 0 $lineEnd ];
+</span></span><span style="display:flex;"><span>                :set previousIP [:pick $previousIP 0 [:find $previousIP &#34;\r&#34;]];
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>######## Write debug info to log #################
+</span></span><span style="display:flex;"><span>:if ($CFDebug = &#34;true&#34;) do={
+</span></span><span style="display:flex;"><span> :log info (&#34;CF: hostname = $CFdomain&#34;)
+</span></span><span style="display:flex;"><span> :log info (&#34;CF: previousIP = $previousIP&#34;)
+</span></span><span style="display:flex;"><span> :log info (&#34;CF: currentIP = $currentIP&#34;)
+</span></span><span style="display:flex;"><span> :log info (&#34;CF: WANip = $WANip&#34;)
+</span></span><span style="display:flex;"><span> :log info (&#34;CF: CFurl = $CFurl&amp;content=$WANip&#34;)
+</span></span><span style="display:flex;"><span> :log info (&#34;CF: Command = \&#34;/tool fetch http-method=put mode=https url=\&#34;$CFurl\&#34; http-header-field=&#34;Authorization:Bearer $CFtkn,content-type:application/json&#34; output=none http-data=\&#34;{\&#34;type\&#34;:\&#34;$CFrecordType\&#34;,\&#34;name\&#34;:\&#34;$CFdomain\&#34;,\&#34;ttl\&#34;:$CFrecordTTL,\&#34;content\&#34;:\&#34;$WANip\&#34;}\&#34;&#34;)
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>######## Compare and update CF if necessary #####
+</span></span><span style="display:flex;"><span>:if ($previousIP != $WANip) do={
+</span></span><span style="display:flex;"><span> :log info (&#34;CF: Updating CF, setting $CFDomain = $WANip&#34;)
+</span></span><span style="display:flex;"><span> /tool fetch http-method=put mode=https url=&#34;$CFurl&#34; http-header-field=&#34;Authorization:Bearer $CFtkn,content-type:application/json&#34; output=none http-data=&#34;{\&#34;type\&#34;:\&#34;$CFrecordType\&#34;,\&#34;name\&#34;:\&#34;$CFdomain\&#34;,\&#34;ttl\&#34;:$CFrecordTTL,\&#34;content\&#34;:\&#34;$WANip\&#34;}&#34;
+</span></span><span style="display:flex;"><span> /ip dns cache flush
+</span></span><span style="display:flex;"><span>    :if ( [/file get [/file find name=ddns.tmp.txt] size] &gt; 0 ) do={
+</span></span><span style="display:flex;"><span>        /file remove ddns.tmp.txt
+</span></span><span style="display:flex;"><span>        :execute script=&#34;:put $WANip&#34; file=&#34;ddns.tmp&#34;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>} else={
+</span></span><span style="display:flex;"><span> :log info &#34;CF: No Update Needed!&#34;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div></details>
+<h3 id="tcp流量握手缓慢">TCP流量握手缓慢</h3>
+<p>表现: 访问网站时打开缓慢,F12查看SSL阶段时间长度接近甚至超过10秒</p>
+<p>原因: OP与ROS在同一网段,进出流量路由不对称,触发ROS防火墙动作</p>
+<p>解决: 禁用ROS防火墙drop invalid规则(位于ip-firewall-filter rules)</p>
+<h3 id="icmpping异常">ICMP(Ping)异常</h3>
+<p>表现: ping 被分流网段ip时黑洞</p>
+<p>原因: 出口Op通过TProxy只能处理TCP/UDP流量</p>
+<p>解决:</p>
+<ul>
+<li>A: Op添加 ICMP劫持(假响应,可规避一些软件的报错)</li>
+<li>B: ROS给ICMP流量打上bypass的route标签,再创建一个bypass路由表,该表不包含OSPF宣告的分流规则,所以如果没有被ISP之类的劫持就是裸连的真响应</li>
+</ul>
+<h3 id="openwrt无法与被分流网段通信循环">Openwrt无法与被分流网段通信(循环)</h3>
+<p>表现: OpenWrt与被分流网段通信时不通</p>
+<p>原因: ROS接到宣告的表后循环Op-&gt;ROS-&gt;Op-&gt;&hellip;</p>
+<p>解决: 给Op流量打上标签,直接走bypass表</p>
+<p>防火墙规则(Mangle)可参考</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>chain=prerouting action=mark-routing new-routing-mark=bypass passthrough=yes src-address=[BYPASS_DEVICE_IP] dst-address-list=!private log=no log-prefix=&#34;&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="dns-cdn优化">DNS CDN优化</h3>
+<p>表现: 不需要分流区域域名CDN解析为分流区域</p>
+<p>原因: Op全局流量走富强</p>
+<p>解决: dnsmasq-full分流list外走国内DNS服务,list内走DoH,Op故障时回落全国内DNS服务</p>
+<h3 id="openwrt访问内网异常">OpenWrt访问内网异常</h3>
+<p>表现: Op所在子网广播域外的其他子网访问Op时,无法正常响应</p>
+<p>原因: Op走了bypass表,未添加其他子网路由,下一跳直接从pppoe-out出去了</p>
+<p>解决: 防火墙匹配src address为op的ip,dst address为需要支持访问子网流量打上main标签走main路由表</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>RouterOS 通过 OSPF IP分流非CN流量</title>
       <link>https://blog.xn--7ovq92diups1e.com/post/homelab-no-cn-routes/</link>
@@ -451,309 +758,6 @@
 </div>
 </div><h4 id="ros-ddns失效问题">ROS DDNS失效问题</h4>
 <p>见前文<a href="https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/#ros-ddns%e5%a4%b1%e6%95%88">ros-ddns失效</a></p>
-]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>RouterOS 通过 OSPF IP分流至 OpenWrt</title>
-      <link>https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/</link>
-      <pubDate>Sat, 23 Apr 2022 16:00:26 +0800</pubDate>
-      
-      <guid>https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/</guid>
-      <description>ROS ip 分流方案</description>
-      <content:encoded><![CDATA[<h3 id="组网参考">组网参考</h3>
-<p>Reflist:</p>
-<ul>
-<li><a href="https://www.truenasscale.com/2021/12/13/195.html">使用RouterOS，OSPF 和OpenWRT给国内外 IP 分流</a></li>
-<li><a href="https://www.kn1f4.com/news/767.html">RouterOS路由OSPF协议+树莓派分流国外流量</a></li>
-</ul>
-<p>遇到一些问题记录一下</p>
-<h3 id="ros-ddns失效">ROS DDNS失效</h3>
-<p>表现: 域名解析ip不正确</p>
-<p>原因: 分流后ROS内置ip cloud(DDNS)流量同样会被指向OpenWrt导致错误,尝试打标签bypass对应udp流量未成功,因为有公网IP所以直接改为通过域名服务商API更新对应解析为PPPOE接口地址</p>
-<p>解决: 修改以下脚本中&quot;CloudFlare variables&quot;段内容即可.原始脚本见<a href="https://github.com/mike6715b/Mikrotik_CF_DDNS">Mikrotik_CF_DDNS</a></p>
-<details>
-  <summary>Cloudflare DDNS ROS脚本(IPV4)</summary>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">  9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 22
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 23
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 24
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 25
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 26
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 27
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 28
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 29
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 30
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 31
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 32
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 33
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 34
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 35
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 36
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 37
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 38
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 39
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 40
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 41
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 42
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 43
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 44
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 45
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 46
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 47
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 48
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 49
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 50
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 51
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 52
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 53
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 54
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 55
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 56
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 57
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 58
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 59
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 60
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 61
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 62
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 63
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 64
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 65
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 66
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 67
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 68
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 69
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 70
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 71
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 72
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 73
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 74
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 75
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 76
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 77
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 78
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 79
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 80
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 81
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 82
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 83
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 84
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 85
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 86
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 87
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 88
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 89
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 90
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 91
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 92
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 93
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 94
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 95
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 96
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 97
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 98
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 99
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">100
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">101
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">102
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">103
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">104
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">105
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">106
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">107
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">108
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">109
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">110
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">111
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">112
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">113
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">114
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">115
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">116
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">117
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">118
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">119
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">120
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>#########################################################################
-</span></span><span style="display:flex;"><span>#         ==================================================            #
-</span></span><span style="display:flex;"><span>#         $ Mikrotik RouterOS update script for CloudFlare $            #
-</span></span><span style="display:flex;"><span>#         ==================================================            #
-</span></span><span style="display:flex;"><span>#                                                                       #
-</span></span><span style="display:flex;"><span># - You need a CloudFlare account &amp; api key (look under settings),      #
-</span></span><span style="display:flex;"><span>#   a zone and A record in it                                           #
-</span></span><span style="display:flex;"><span># - All variables in first section are obvious,                         #
-</span></span><span style="display:flex;"><span>#   except CFid and CFzoneid                                            #
-</span></span><span style="display:flex;"><span># - Obtain CFzoneid from Cloudflare Dashboard,                          #
-</span></span><span style="display:flex;"><span>#   on Overview tab scroll down                                         # 
-</span></span><span style="display:flex;"><span>#   To obtain CFid use following command in any unix shell:             #
-</span></span><span style="display:flex;"><span>#    curl -X GET &#34;https://api.cloudflare.com/client/v4/zones/YOUR_ZONE_ID/dns_records?name=YOUR_DOMAIN&#34; -H &#34;Authorization:Bearer $CFtkn&#34; -H &#34;Content-Type: application/json&#34; | python -mjson.tool
-</span></span><span style="display:flex;"><span># - You can use my Postman script to get those variables                #
-</span></span><span style="display:flex;"><span># - Enable CFDebug if needed - it&#39;ll print some info to logs            #
-</span></span><span style="display:flex;"><span># - Enable CFcloud if you don&#39;t get a public IP on interface            #
-</span></span><span style="display:flex;"><span># - Put script under /system scripts giving &#34;read,write,ftp&#34; policy access.       #
-</span></span><span style="display:flex;"><span>#   For 6.29 and older &#34;test&#34; policy is also needed.                    #
-</span></span><span style="display:flex;"><span># - Add script to /system scheduler using it&#39;s name in &#34;on-event&#34;       #
-</span></span><span style="display:flex;"><span># - Requires at least RouterOS 6.44beta75 for multiple header support   #
-</span></span><span style="display:flex;"><span>#                                                                       #
-</span></span><span style="display:flex;"><span>#              Credits for Samuel Tegenfeldt, CC BY-SA 3.0              #
-</span></span><span style="display:flex;"><span>#                        Modified by kiler129                           #
-</span></span><span style="display:flex;"><span>#                        Modified by viritt                             #
-</span></span><span style="display:flex;"><span>#                        Modified by asuna                              #
-</span></span><span style="display:flex;"><span>#                        Modified by mike6715b                          #
-</span></span><span style="display:flex;"><span>#                                                                       #
-</span></span><span style="display:flex;"><span>#               Tested and working as of February 22, 2021              #
-</span></span><span style="display:flex;"><span>#########################################################################
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>################# CloudFlare variables #################
-</span></span><span style="display:flex;"><span>:local CFDebug &#34;false&#34;
-</span></span><span style="display:flex;"><span>:local CFcloud &#34;false&#34;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>:global WANInterface &#34;[YOUR_WAN_INTERFACE_NAME]&#34;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>:local CFdomain &#34;[YOUR_DOMAIN]&#34;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>:local CFtkn &#34;[YOUR_CF_TOKEN]&#34;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>:local CFzoneid &#34;[YOUR_CF_ZONE_ID]&#34;
-</span></span><span style="display:flex;"><span>:local CFid &#34;[YOUR_CF_ID]&#34;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>:local CFrecordType &#34;&#34;
-</span></span><span style="display:flex;"><span>:set CFrecordType &#34;A&#34;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>:local CFrecordTTL &#34;&#34;
-</span></span><span style="display:flex;"><span>:set CFrecordTTL &#34;60&#34;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>#########################################################################
-</span></span><span style="display:flex;"><span>########################  DO NOT EDIT BELOW  ############################
-</span></span><span style="display:flex;"><span>#########################################################################
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>:log info &#34;Updating $CFDomain ...&#34;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>################# Internal variables #################
-</span></span><span style="display:flex;"><span>:local previousIP &#34;&#34;
-</span></span><span style="display:flex;"><span>:global WANip &#34;&#34;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>################# Build CF API Url (v4) #################
-</span></span><span style="display:flex;"><span>:local CFurl &#34;https://api.cloudflare.com/client/v4/zones/&#34;
-</span></span><span style="display:flex;"><span>:set CFurl ($CFurl . &#34;$CFzoneid/dns_records/$CFid&#34;);
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>################# Get or set previous IP-variables #################
-</span></span><span style="display:flex;"><span>:if ($CFcloud = &#34;true&#34;) do={
-</span></span><span style="display:flex;"><span>    :set WANip [/ip cloud get public-address]
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>:if ($CFcloud = &#34;false&#34;) do={
-</span></span><span style="display:flex;"><span>    :local currentIP [/ip address get [/ip address find interface=$WANInterface ] address];
-</span></span><span style="display:flex;"><span>    :set WANip [:pick $currentIP 0 [:find $currentIP &#34;/&#34;]];
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>:if ([/file find name=ddns.tmp.txt] = &#34;&#34;) do={
-</span></span><span style="display:flex;"><span>    :log error &#34;No previous ip address file found, createing...&#34;
-</span></span><span style="display:flex;"><span>    :set previousIP $WANip;
-</span></span><span style="display:flex;"><span>    :execute script=&#34;:put $WANip&#34; file=&#34;ddns.tmp&#34;;
-</span></span><span style="display:flex;"><span>    :log info (&#34;CF: Updating CF, setting $CFDomain = $WANip&#34;)
-</span></span><span style="display:flex;"><span>    /tool fetch http-method=put mode=https output=none url=&#34;$CFurl&#34; http-header-field=&#34;Authorization:Bearer $CFtkn,content-type:application/json&#34; http-data=&#34;{\&#34;type\&#34;:\&#34;$CFrecordType\&#34;,\&#34;name\&#34;:\&#34;$CFdomain\&#34;,\&#34;ttl\&#34;:$CFrecordTTL,\&#34;content\&#34;:\&#34;$WANip\&#34;}&#34;
-</span></span><span style="display:flex;"><span>    :error message=&#34;No previous ip address file found.&#34;
-</span></span><span style="display:flex;"><span>} else={
-</span></span><span style="display:flex;"><span>    :if ( [/file get [/file find name=ddns.tmp.txt] size] &gt; 0 ) do={ 
-</span></span><span style="display:flex;"><span>    :global content [/file get [/file find name=&#34;ddns.tmp.txt&#34;] contents] ;
-</span></span><span style="display:flex;"><span>    :global contentLen [ :len $content ] ;  
-</span></span><span style="display:flex;"><span>    :global lineEnd 0;
-</span></span><span style="display:flex;"><span>    :global line &#34;&#34;;
-</span></span><span style="display:flex;"><span>    :global lastEnd 0;   
-</span></span><span style="display:flex;"><span>            :set lineEnd [:find $content &#34;\n&#34; $lastEnd ] ;
-</span></span><span style="display:flex;"><span>            :set line [:pick $content $lastEnd $lineEnd] ;
-</span></span><span style="display:flex;"><span>            :set lastEnd ( $lineEnd + 1 ) ;   
-</span></span><span style="display:flex;"><span>            :if ( [:pick $line 0 1] != &#34;#&#34; ) do={   
-</span></span><span style="display:flex;"><span>                #:local previousIP [:pick $line 0 $lineEnd ]
-</span></span><span style="display:flex;"><span>                :set previousIP [:pick $line 0 $lineEnd ];
-</span></span><span style="display:flex;"><span>                :set previousIP [:pick $previousIP 0 [:find $previousIP &#34;\r&#34;]];
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>######## Write debug info to log #################
-</span></span><span style="display:flex;"><span>:if ($CFDebug = &#34;true&#34;) do={
-</span></span><span style="display:flex;"><span> :log info (&#34;CF: hostname = $CFdomain&#34;)
-</span></span><span style="display:flex;"><span> :log info (&#34;CF: previousIP = $previousIP&#34;)
-</span></span><span style="display:flex;"><span> :log info (&#34;CF: currentIP = $currentIP&#34;)
-</span></span><span style="display:flex;"><span> :log info (&#34;CF: WANip = $WANip&#34;)
-</span></span><span style="display:flex;"><span> :log info (&#34;CF: CFurl = $CFurl&amp;content=$WANip&#34;)
-</span></span><span style="display:flex;"><span> :log info (&#34;CF: Command = \&#34;/tool fetch http-method=put mode=https url=\&#34;$CFurl\&#34; http-header-field=&#34;Authorization:Bearer $CFtkn,content-type:application/json&#34; output=none http-data=\&#34;{\&#34;type\&#34;:\&#34;$CFrecordType\&#34;,\&#34;name\&#34;:\&#34;$CFdomain\&#34;,\&#34;ttl\&#34;:$CFrecordTTL,\&#34;content\&#34;:\&#34;$WANip\&#34;}\&#34;&#34;)
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>######## Compare and update CF if necessary #####
-</span></span><span style="display:flex;"><span>:if ($previousIP != $WANip) do={
-</span></span><span style="display:flex;"><span> :log info (&#34;CF: Updating CF, setting $CFDomain = $WANip&#34;)
-</span></span><span style="display:flex;"><span> /tool fetch http-method=put mode=https url=&#34;$CFurl&#34; http-header-field=&#34;Authorization:Bearer $CFtkn,content-type:application/json&#34; output=none http-data=&#34;{\&#34;type\&#34;:\&#34;$CFrecordType\&#34;,\&#34;name\&#34;:\&#34;$CFdomain\&#34;,\&#34;ttl\&#34;:$CFrecordTTL,\&#34;content\&#34;:\&#34;$WANip\&#34;}&#34;
-</span></span><span style="display:flex;"><span> /ip dns cache flush
-</span></span><span style="display:flex;"><span>    :if ( [/file get [/file find name=ddns.tmp.txt] size] &gt; 0 ) do={
-</span></span><span style="display:flex;"><span>        /file remove ddns.tmp.txt
-</span></span><span style="display:flex;"><span>        :execute script=&#34;:put $WANip&#34; file=&#34;ddns.tmp&#34;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>} else={
-</span></span><span style="display:flex;"><span> :log info &#34;CF: No Update Needed!&#34;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></td></tr></table>
-</div>
-</div></details>
-<h3 id="tcp流量握手缓慢">TCP流量握手缓慢</h3>
-<p>表现: 访问网站时打开缓慢,F12查看SSL阶段时间长度接近甚至超过10秒</p>
-<p>原因: OP与ROS在同一网段,进出流量路由不对称,触发ROS防火墙动作</p>
-<p>解决: 禁用ROS防火墙drop invalid规则(位于ip-firewall-filter rules)</p>
-<h3 id="icmpping异常">ICMP(Ping)异常</h3>
-<p>表现: ping 被分流网段ip时黑洞</p>
-<p>原因: 出口Op通过TProxy只能处理TCP/UDP流量</p>
-<p>解决:</p>
-<ul>
-<li>A: Op添加 ICMP劫持(假响应,可规避一些软件的报错)</li>
-<li>B: ROS给ICMP流量打上bypass的route标签,再创建一个bypass路由表,该表不包含OSPF宣告的分流规则,所以如果没有被ISP之类的劫持就是裸连的真响应</li>
-</ul>
-<h3 id="openwrt无法与被分流网段通信循环">Openwrt无法与被分流网段通信(循环)</h3>
-<p>表现: OpenWrt与被分流网段通信时不通</p>
-<p>原因: ROS接到宣告的表后循环Op-&gt;ROS-&gt;Op-&gt;&hellip;</p>
-<p>解决: 给Op流量打上标签,直接走bypass表</p>
-<p>防火墙规则(Mangle)可参考</p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>chain=prerouting action=mark-routing new-routing-mark=bypass passthrough=yes src-address=[BYPASS_DEVICE_IP] dst-address-list=!private log=no log-prefix=&#34;&#34;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="dns-cdn优化">DNS CDN优化</h3>
-<p>表现: 不需要分流区域域名CDN解析为分流区域</p>
-<p>原因: Op全局流量走富强</p>
-<p>解决: dnsmasq-full分流list外走国内DNS服务,list内走DoH,Op故障时回落全国内DNS服务</p>
-<h3 id="openwrt访问内网异常">OpenWrt访问内网异常</h3>
-<p>表现: Op所在子网广播域外的其他子网访问Op时,无法正常响应</p>
-<p>原因: Op走了bypass表,未添加其他子网路由,下一跳直接从pppoe-out出去了</p>
-<p>解决: 防火墙匹配src address为op的ip,dst address为需要支持访问子网流量打上main标签走main路由表</p>
 ]]></content:encoded>
     </item>
     
