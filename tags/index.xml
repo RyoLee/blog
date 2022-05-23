@@ -6,11 +6,11 @@
     <description>Recent content in Tags on 華鳥風月</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 18 May 2022 17:33:18 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 May 2022 17:48:03 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>BRID</title>
       <link>https://blog.xn--7ovq92diups1e.com/tags/brid/</link>
-      <pubDate>Wed, 18 May 2022 17:33:18 +0800</pubDate>
+      <pubDate>Mon, 23 May 2022 17:48:03 +0800</pubDate>
       
       <guid>https://blog.xn--7ovq92diups1e.com/tags/brid/</guid>
       <description></description>
@@ -20,9 +20,69 @@
     <item>
       <title>Debian</title>
       <link>https://blog.xn--7ovq92diups1e.com/tags/debian/</link>
-      <pubDate>Wed, 18 May 2022 17:33:18 +0800</pubDate>
+      <pubDate>Mon, 23 May 2022 17:48:03 +0800</pubDate>
       
       <guid>https://blog.xn--7ovq92diups1e.com/tags/debian/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>ip分流</title>
+      <link>https://blog.xn--7ovq92diups1e.com/tags/ip%E5%88%86%E6%B5%81/</link>
+      <pubDate>Mon, 23 May 2022 17:48:03 +0800</pubDate>
+      
+      <guid>https://blog.xn--7ovq92diups1e.com/tags/ip%E5%88%86%E6%B5%81/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>OP</title>
+      <link>https://blog.xn--7ovq92diups1e.com/tags/op/</link>
+      <pubDate>Mon, 23 May 2022 17:48:03 +0800</pubDate>
+      
+      <guid>https://blog.xn--7ovq92diups1e.com/tags/op/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>OpenWrt</title>
+      <link>https://blog.xn--7ovq92diups1e.com/tags/openwrt/</link>
+      <pubDate>Mon, 23 May 2022 17:48:03 +0800</pubDate>
+      
+      <guid>https://blog.xn--7ovq92diups1e.com/tags/openwrt/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>OSPF</title>
+      <link>https://blog.xn--7ovq92diups1e.com/tags/ospf/</link>
+      <pubDate>Mon, 23 May 2022 17:48:03 +0800</pubDate>
+      
+      <guid>https://blog.xn--7ovq92diups1e.com/tags/ospf/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>ROS</title>
+      <link>https://blog.xn--7ovq92diups1e.com/tags/ros/</link>
+      <pubDate>Mon, 23 May 2022 17:48:03 +0800</pubDate>
+      
+      <guid>https://blog.xn--7ovq92diups1e.com/tags/ros/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
+    
+    <item>
+      <title>RouterOS</title>
+      <link>https://blog.xn--7ovq92diups1e.com/tags/routeros/</link>
+      <pubDate>Mon, 23 May 2022 17:48:03 +0800</pubDate>
+      
+      <guid>https://blog.xn--7ovq92diups1e.com/tags/routeros/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
@@ -33,16 +93,6 @@
       <pubDate>Wed, 18 May 2022 17:33:18 +0800</pubDate>
       
       <guid>https://blog.xn--7ovq92diups1e.com/tags/gevjon/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>ip分流</title>
-      <link>https://blog.xn--7ovq92diups1e.com/tags/ip%E5%88%86%E6%B5%81/</link>
-      <pubDate>Wed, 18 May 2022 17:33:18 +0800</pubDate>
-      
-      <guid>https://blog.xn--7ovq92diups1e.com/tags/ip%E5%88%86%E6%B5%81/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
@@ -63,36 +113,6 @@
       <pubDate>Wed, 18 May 2022 17:33:18 +0800</pubDate>
       
       <guid>https://blog.xn--7ovq92diups1e.com/tags/md/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>OSPF</title>
-      <link>https://blog.xn--7ovq92diups1e.com/tags/ospf/</link>
-      <pubDate>Wed, 18 May 2022 17:33:18 +0800</pubDate>
-      
-      <guid>https://blog.xn--7ovq92diups1e.com/tags/ospf/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>ROS</title>
-      <link>https://blog.xn--7ovq92diups1e.com/tags/ros/</link>
-      <pubDate>Wed, 18 May 2022 17:33:18 +0800</pubDate>
-      
-      <guid>https://blog.xn--7ovq92diups1e.com/tags/ros/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>RouterOS</title>
-      <link>https://blog.xn--7ovq92diups1e.com/tags/routeros/</link>
-      <pubDate>Wed, 18 May 2022 17:33:18 +0800</pubDate>
-      
-      <guid>https://blog.xn--7ovq92diups1e.com/tags/routeros/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
@@ -123,26 +143,6 @@
       <pubDate>Wed, 18 May 2022 17:33:18 +0800</pubDate>
       
       <guid>https://blog.xn--7ovq92diups1e.com/tags/%E6%B8%B8%E6%88%8F%E7%8E%8B/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>OP</title>
-      <link>https://blog.xn--7ovq92diups1e.com/tags/op/</link>
-      <pubDate>Wed, 18 May 2022 10:51:50 +0800</pubDate>
-      
-      <guid>https://blog.xn--7ovq92diups1e.com/tags/op/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>OpenWrt</title>
-      <link>https://blog.xn--7ovq92diups1e.com/tags/openwrt/</link>
-      <pubDate>Wed, 18 May 2022 10:51:50 +0800</pubDate>
-      
-      <guid>https://blog.xn--7ovq92diups1e.com/tags/openwrt/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>

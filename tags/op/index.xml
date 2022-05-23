@@ -6,11 +6,11 @@
     <description>Recent content in OP on 華鳥風月</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 18 May 2022 10:51:50 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/op/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 May 2022 17:48:03 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/op/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RouterOS 通过 OSPF IP分流至 OpenWrt</title>
       <link>https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/</link>
-      <pubDate>Wed, 18 May 2022 10:51:50 +0800</pubDate>
+      <pubDate>Mon, 23 May 2022 17:48:03 +0800</pubDate>
       
       <guid>https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/</guid>
       <description>ROS ip 分流方案</description>
@@ -24,6 +24,7 @@
 <li><a href="https://www.truenasscale.com/2021/12/13/195.html">使用RouterOS，OSPF 和OpenWRT给国内外 IP 分流</a></li>
 <li><a href="https://www.kn1f4.com/news/767.html">RouterOS路由OSPF协议+树莓派分流国外流量</a></li>
 </ul>
+<p>主要适用于不想折腾PS/XBOX/Switch设备网关配置,又不希望出口网关为卵漏油/AIB的,或者怕折腾网络时家里断网影响家人的</p>
 <p>遇到一些问题记录一下</p>
 <h3 id="ros-ddns失效">ROS DDNS失效</h3>
 <p>表现: 域名解析ip不正确</p>
@@ -305,7 +306,7 @@
 </div>
 </div><h3 id="dns-cdn优化">DNS CDN优化</h3>
 <p>表现: 不需要分流区域域名CDN解析为分流区域</p>
-<p>原因: Op全局流量走富强</p>
+<p>原因: Op全局流量隧道,DNS解析也被隧道处理,导致CDN失效</p>
 <p>解决: dnsmasq-full分流list外走国内DNS服务,list内走DoH,Op故障时回落全国内DNS服务</p>
 <h3 id="openwrt访问内网异常">OpenWrt访问内网异常</h3>
 <p>表现: Op所在子网广播域外的其他子网访问Op时,无法正常响应</p>

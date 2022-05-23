@@ -6,17 +6,18 @@
     <description>Recent content in Debian on 華鳥風月</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 18 May 2022 17:33:18 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/debian/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 May 2022 17:48:03 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/debian/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RouterOS 通过 OSPF IP分流非CN流量</title>
       <link>https://blog.xn--7ovq92diups1e.com/post/homelab-no-cn-routes/</link>
-      <pubDate>Wed, 18 May 2022 17:33:18 +0800</pubDate>
+      <pubDate>Mon, 23 May 2022 17:48:03 +0800</pubDate>
       
       <guid>https://blog.xn--7ovq92diups1e.com/post/homelab-no-cn-routes/</guid>
       <description>ROS ip 分流方案</description>
       <content:encoded><![CDATA[<h3 id="旧-同网段分流openwrt方案">旧: 同网段分流openwrt方案</h3>
 <p>见前文<a href="https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/">RouterOS 通过 OSPF IP分流至 OpenWrt</a></p>
 <p>零散问题比较多,基于以上测试经验改进出新方案,非CN IP流量出口改为使用运行debian的一台NUC</p>
+<p>主要适用于不想折腾PS/XBOX/Switch设备网关配置,又不希望出口网关为卵漏油/AIB的,或者怕折腾网络时家里断网影响家人的</p>
 <h3 id="相关硬件">相关硬件</h3>
 <ul>
 <li>
