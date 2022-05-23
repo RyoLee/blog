@@ -15,6 +15,8 @@ Reflist:
 - [使用RouterOS，OSPF 和OpenWRT给国内外 IP 分流](https://www.truenasscale.com/2021/12/13/195.html)
 - [RouterOS路由OSPF协议+树莓派分流国外流量](https://www.kn1f4.com/news/767.html)
 
+主要适用于不想折腾PS/XBOX/Switch设备网关配置,又不希望出口网关为卵漏油/AIB的,或者怕折腾网络时家里断网影响家人的
+
 遇到一些问题记录一下
 
 ### ROS DDNS失效
@@ -188,7 +190,7 @@ chain=prerouting action=mark-routing new-routing-mark=bypass passthrough=yes src
 
 表现: 不需要分流区域域名CDN解析为分流区域
 
-原因: Op全局流量走富强
+原因: Op全局流量隧道,DNS解析也被隧道处理,导致CDN失效
 
 解决: dnsmasq-full分流list外走国内DNS服务,list内走DoH,Op故障时回落全国内DNS服务
 

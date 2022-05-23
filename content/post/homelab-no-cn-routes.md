@@ -12,6 +12,8 @@ projects: ["Homelab"]
 
 零散问题比较多,基于以上测试经验改进出新方案,非CN IP流量出口改为使用运行debian的一台NUC
 
+主要适用于不想折腾PS/XBOX/Switch设备网关配置,又不希望出口网关为卵漏油/AIB的,或者怕折腾网络时家里断网影响家人的
+
 ### 相关硬件
 - Mikrotik AC^2 (ros stable 7.2.3*)
 - NUC5i5MYBE (debian 11)
