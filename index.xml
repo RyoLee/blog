@@ -6,7 +6,49 @@
     <description>Recent content on 華鳥風月</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 23 May 2022 17:48:03 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Jun 2022 17:10:21 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>iOS中国大陆工作日闹钟</title>
+      <link>https://blog.xn--7ovq92diups1e.com/post/homelab-cn-working-clock/</link>
+      <pubDate>Wed, 01 Jun 2022 17:10:21 +0800</pubDate>
+      
+      <guid>https://blog.xn--7ovq92diups1e.com/post/homelab-cn-working-clock/</guid>
+      <description>iOS中国大陆工作日闹钟</description>
+      <content:encoded><![CDATA[<h1 id="简述">简述</h1>
+<p>使用数据来自<a href="https://github.com/RyoLee/cn_working_day">cn_working_day</a>项目</p>
+<p>基于<a href="https://github.com/workalendar/workalendar">workalendar</a> 生成近30天工作日信息</p>
+<p>使用Github action自动更新</p>
+<h1 id="导入设定">导入&amp;设定</h1>
+<p>iOS工作日闹钟<a href="https://www.icloud.com/shortcuts/a59ec0310b0444579fa69c34dbcdba90">快捷指令-工作日闹钟</a></p>
+<p>使用该快捷指令需配置2个闹钟,分别对应工作日和休息日,再编辑快捷指令找到如下部分,分别点击&quot;工作日&quot;/&ldquo;休息日&quot;改为需要的闹钟</p>
+<ul>
+<li>[打开]闹钟&quot;工作日&rdquo;</li>
+<li>[打开]闹钟&quot;休息日&quot;</li>
+</ul>
+<p>因闹钟可能不存在或未配置闹钟名,[打开]闹钟可能会显示异常,请手动修改打开闹钟&quot;工作日&quot;/&ldquo;休息日&quot;为对应闹钟</p>
+<p><strong>请不要修改后面的部分,后面的关闭部分除非你要删除休息日闹钟,否则不需要手动修改</strong></p>
+<h1 id="不需要休息日闹钟">不需要休息日闹钟</h1>
+<p>如果休息日想睡懒觉不需要闹钟,则删除以下2项</p>
+<ul>
+<li>[打开]闹钟&quot;休息日&rdquo;</li>
+<li>[关闭]闹钟&quot;休息日闹钟&quot;</li>
+</ul>
+<h1 id="自动化">自动化</h1>
+<p><del>自动化可以自行选择方案,比较常见的是在 快捷指令-自动化-创建个人自动化-打开&quot;勿扰模式&quot;模式时 添加运行本快捷指令利用勿扰模式触发自动运行</del></p>
+<p><del>勿扰模式在 设置-专注模式-勿扰模式-自动打开 处添加 每天 00:10-06:00 配置,即可实现全自动触发</del></p>
+<p>最新版本上已支持定时无操作触发,勿扰方式是旧版的老黄历了</p>
+<p>新版直接如下操作即可:</p>
+<p>快捷指令&ndash;&gt;自动化&ndash;&gt;&quot;+&quot;&ndash;&gt;创建个人自动化&ndash;&gt;特定时间&ndash;&gt;修改时间(注意要在0点以后)并下一步&ndash;&gt;添加操作&ndash;&gt;运行快捷指令&ndash;&gt;点选运行&quot;工作日闹钟&quot;并下一步&ndash;&gt;<strong>取消勾选运行前询问</strong>&ndash;&gt;完成</p>
+<p>如果没有取消勾选运行前询问则为老版本,需要继续使用勿扰来绕过</p>
+<h1 id="其他">其他</h1>
+<ol>
+<li>首次运行时会询问是否运行访问数据源网站,需要手动允许一次才能自动运行,不然会卡住</li>
+<li>可以通过添加多个自动化的方式防止访问数据源失败(如工作日/休息日闹钟分别为07:00/09:32,可以在1/3/5点分别加一个)</li>
+<li><strong>请求数据失败时,两个闹钟都会开启</strong></li>
+</ol>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>RouterOS 通过 OSPF IP分流至 OpenWrt</title>
       <link>https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/</link>
@@ -912,36 +954,6 @@
 <p><strong>总之,风险自负</strong></p>
 <h3 id="license">License</h3>
 <p><a href="https://github.com/RyoLee/Gevjon/blob/master/LICENSE">MIT License</a></p>
-]]></content:encoded>
-    </item>
-    
-    <item>
-      <title>iOS中国大陆工作日闹钟</title>
-      <link>https://blog.xn--7ovq92diups1e.com/post/homelab-cn-working-clock/</link>
-      <pubDate>Sat, 30 Apr 2022 15:59:06 +0800</pubDate>
-      
-      <guid>https://blog.xn--7ovq92diups1e.com/post/homelab-cn-working-clock/</guid>
-      <description>iOS中国大陆工作日闹钟</description>
-      <content:encoded><![CDATA[<p>使用数据来自<a href="https://github.com/RyoLee/cn_working_day">cn_working_day</a>项目</p>
-<p>基于<a href="https://github.com/workalendar/workalendar">workalendar</a> 生成近30天工作日信息</p>
-<p>使用Github action自动更新</p>
-<p>iOS工作日闹钟<a href="https://www.icloud.com/shortcuts/20c84b95071d4ac489f59dc8307ba279">快捷指令-工作日闹钟</a></p>
-<p>使用该快捷指令需配置2个闹钟,分别对应工作日和休息日,再编辑快捷指令找到如下部分</p>
-<ul>
-<li>[打开]闹钟&quot;工作日&quot;</li>
-<li>将变量[工作日]设为[闹钟]</li>
-<li>[打开]闹钟&quot;休息日&quot;</li>
-<li>将变量[休息日]设为[闹钟]</li>
-</ul>
-<p>因闹钟可能不存在或未配置闹钟名,[打开]闹钟可能会显示异常,请手动修改打开闹钟&quot;工作日&quot;/&ldquo;休息日&quot;为对应闹钟</p>
-<p>如果休息日想睡懒觉不需要闹钟,则删除以下三项</p>
-<ul>
-<li>[打开]闹钟&quot;休息日&rdquo;</li>
-<li>将变量[休息日]设为[闹钟]</li>
-<li>否则(询问是否同时删除&quot;否则&quot;内的操作时,选择&quot;删除操作&quot;)</li>
-</ul>
-<p>自动化可以自行选择方案,比较常见的是在 快捷指令-自动化-创建个人自动化-打开&quot;勿扰模式&quot;模式时 添加运行本快捷指令利用勿扰模式触发自动运行</p>
-<p>勿扰模式在 设置-专注模式-勿扰模式-自动打开 处添加 每天 00:10-06:00 配置,即可实现全自动触发</p>
 ]]></content:encoded>
     </item>
     
