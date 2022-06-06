@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>RouterOS 端口扫描防御 | 華鳥風月</title>
+<meta name="keywords" content="RouterOS, Mikrotik, ROS, Firewall, 防火墙, Bark">
+<meta name="description" content="RouterOS 入侵检测">
+<meta name="author" content="Ryo">
+<link rel="canonical" href="https://blog.xn--7ovq92diups1e.com/post/homelab-ros-anti-scan/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.css" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.js" onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://blog.xn--7ovq92diups1e.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.xn--7ovq92diups1e.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.xn--7ovq92diups1e.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://blog.xn--7ovq92diups1e.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://blog.xn--7ovq92diups1e.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-66E8S3GQ2B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-66E8S3GQ2B');
+</script>
+<meta name="referrer" content="no-referrer-when-downgrade">
+<meta property="og:title" content="RouterOS 端口扫描防御" />
+<meta property="og:description" content="RouterOS 入侵检测" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.xn--7ovq92diups1e.com/post/homelab-ros-anti-scan/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-06-06T20:29:29&#43;08:00" />
+<meta property="article:modified_time" content="2022-06-06T20:29:29&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="RouterOS 端口扫描防御"/>
+<meta name="twitter:description" content="RouterOS 入侵检测"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://blog.xn--7ovq92diups1e.com/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "RouterOS 端口扫描防御",
+      "item": "https://blog.xn--7ovq92diups1e.com/post/homelab-ros-anti-scan/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "RouterOS 端口扫描防御",
+  "name": "RouterOS 端口扫描防御",
+  "description": "RouterOS 入侵检测",
+  "keywords": [
+    "RouterOS", "Mikrotik", "ROS", "Firewall", "防火墙", "Bark"
+  ],
+  "articleBody": "通过ROS防火墙检测并屏蔽端口扫描行为,并使用bark将屏蔽事件发送至手机\nROS配置 屏蔽列表IP 屏蔽BOT列表中的数据包,建议将这一条的优先级提高到最高(即编号#1)\n1 2  /ip firewall raw add action=drop chain=prerouting comment=ANTI-BOT src-address-list=BOT   指定端口方式 对于常见家用环境下不使用的高危TCP端口进行记录,在连续尝试3次(1分钟超时)后拉黑IP 7天\n1 2 3 4  /ip firewall raw add action=add-src-to-address-list address-list=BOT address-list-timeout=1w chain=prerouting comment=ANTI-SCAN dst-port=20-23,53,80,135,139,443,445,1433,2049,3389,5900,8080,8089 log=yes log-prefix=ANTI-SCAN protocol=tcp src-address-list=SCAN_S2 add action=add-src-to-address-list address-list=SCAN_S2 address-list-timeout=1m chain=prerouting comment=ANTI-SCAN dst-port=20-23,53,80,135,139,443,445,1433,2049,3389,5900,8080,8089 protocol=tcp src-address-list=SCAN_S1 add action=add-src-to-address-list address-list=SCAN_S1 address-list-timeout=1m chain=prerouting comment=ANTI-SCAN dst-port=20-23,53,80,135,139,443,445,1433,2049,3389,5900,8080,8089 in-interface-list=WAN protocol=tcp   PSD方式 如果觉得搞一堆端口配置太麻烦,也可以用内置的PSD来实现,默认规则为: 3秒内低位端口计3分,高位端口计1分,合计21分触发\n实测默认规则针对端口批量扫描检出率较高,针对定向端口弱口令爆破识别效果稍差,建议自行调整参数,或者结合指定端口方式配置\n1 2 3  /ip firewall raw add action=add-src-to-address-list address-list=BOT address-list-timeout=1w chain=prerouting comment=ANTI-SCAN in-interface-list=WAN log=yes log-prefix=ANTI-SCAN protocol=tcp psd=21,3s,3,1 add action=add-src-to-address-list address-list=BOT address-list-timeout=1w chain=prerouting comment=ANTI-SCAN in-interface-list=WAN log=yes log-prefix=ANTI-SCAN protocol=udp psd=21,3s,3,1   Rsyslog配置 如果不需要推送屏蔽完成上述配置即可\n假设接收日志机器ip为192.168.1.100\n1 2 3 4  /system logging action set remote=192.168.1.100 remote /system logging add action=remote topics=info   如果不需要其他消息可以在topics中加上firewall,仅过滤并转发防火墙的log\nLinux配置 假设接收设备ip为192.168.1.100,ROS ip为192.168.1.1\n修改/etc/rsyslog.conf如下部分,去除最前面的\"#“解除注释,启用udp模式rsyslog接收ros发送过来的日志\n1 2  module(load=\"imudp\") input(type=\"imudp\" port=\"514\") # 可按需修改端口,需要同步修改ros配置端口   再添加如下规则\n1 2 3  :msg, contains, \"ANTI-SCAN\" ^/opt/bark/router.sh # 调用脚本处理并发送bark消息 :FROMHOST-IP, isequal,\"192.168.1.1\" /var/log/router.log # 汇总ros日志 :FROMHOST-IP, isequal,\"192.168.1.1\" ~ # 防止重复收集到message中   修改/etc/logrotate.d/rsyslog 在花括号前添加一行,配置日志老化\n1  /var/log/router.log   创建脚本 /opt/bark/router.sh 并添加权限(chmod +x /opt/bark/router.sh),消息格式可自行按需调整\nYOUR_BARK_SERVER 替换为BARK服务器ip/域名\nYOUR_DEVICE_ID 替换为接收设备ID\n1 2 3 4 5 6 7 8 9 10  #!/usr/bin/bash msg=$(echo \"$*\" |tr \" \" \"\\n\"|grep '\\-'|grep -E \"(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\"|tr -d \",\") curl -X \"POST\" \"https://YOUR_BARK_SERVER/push\" \\  -H 'Content-Type: application/json; charset=utf-8' \\  -d $'{ \"body\": \"已封禁:\\n'$msg'\", \"device_key\": \"YOUR_DEVICE_ID\", \"level\": \"passive\", \"title\": \"IDS\" }'   重启rsyslog与logrotate服务使配置生效\n1 2  systemctl restart rsyslog systemctl restart logrotate   ",
+  "wordCount" : "877",
+  "inLanguage": "en",
+  "datePublished": "2022-06-06T20:29:29+08:00",
+  "dateModified": "2022-06-06T20:29:29+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Ryo"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.xn--7ovq92diups1e.com/post/homelab-ros-anti-scan/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "華鳥風月",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blog.xn--7ovq92diups1e.com/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://blog.xn--7ovq92diups1e.com" accesskey="h" title="華鳥風月 (Alt + H)">華鳥風月</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://blog.xn--7ovq92diups1e.com/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.xn--7ovq92diups1e.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://blog.xn--7ovq92diups1e.com/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/RyoLee" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main page">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://blog.xn--7ovq92diups1e.com">Home</a>&nbsp;»&nbsp;<a href="https://blog.xn--7ovq92diups1e.com/post/">Posts</a></div>
+    <h1 class="post-title">
+      RouterOS 端口扫描防御
+    </h1>
+    <div class="post-description">
+      RouterOS 入侵检测
+    </div>
+    <div class="post-meta"><span title='2022-06-06 20:29:29 +0800 CST'>2022-06-06</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;877 words&nbsp;·&nbsp;Ryo&nbsp;|&nbsp;<a href="https://github.com/RyoLee/blog/tree/master/content/post/homelab-ros-anti-scan.md" rel="noopener noreferrer" target="_blank">Suggest Changes</a>
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">Table of Contents</span>
+            </summary>
+
+        <div class="inner"><ul>
+                    <li>
+                        <a href="#ros%e9%85%8d%e7%bd%ae" aria-label="ROS配置">ROS配置</a><ul>
+                            
+                    <li>
+                        <a href="#%e5%b1%8f%e8%94%bd%e5%88%97%e8%a1%a8ip" aria-label="屏蔽列表IP">屏蔽列表IP</a></li>
+                    <li>
+                        <a href="#%e6%8c%87%e5%ae%9a%e7%ab%af%e5%8f%a3%e6%96%b9%e5%bc%8f" aria-label="指定端口方式">指定端口方式</a></li>
+                    <li>
+                        <a href="#psd%e6%96%b9%e5%bc%8f" aria-label="PSD方式">PSD方式</a></li>
+                    <li>
+                        <a href="#rsyslog%e9%85%8d%e7%bd%ae" aria-label="Rsyslog配置">Rsyslog配置</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#linux%e9%85%8d%e7%bd%ae" aria-label="Linux配置">Linux配置</a>
+                    </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+        
+        activeElement = elements[0];
+        const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+        document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+    }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+            const id = encodeURI(element.getAttribute('id')).toLowerCase();
+            if (element === activeElement){
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+            } else {
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+            }
+        })
+    }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
+
+  <div class="post-content"><p>通过ROS防火墙检测并屏蔽端口扫描行为,并使用bark将屏蔽事件发送至手机</p>
+<h3 id="ros配置">ROS配置<a hidden class="anchor" aria-hidden="true" href="#ros配置">#</a></h3>
+<h4 id="屏蔽列表ip">屏蔽列表IP<a hidden class="anchor" aria-hidden="true" href="#屏蔽列表ip">#</a></h4>
+<p>屏蔽BOT列表中的数据包,建议将这一条的优先级提高到最高(即编号#1)</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>/ip firewall raw
+</span></span><span style="display:flex;"><span>add action=drop chain=prerouting comment=ANTI-BOT src-address-list=BOT
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="指定端口方式">指定端口方式<a hidden class="anchor" aria-hidden="true" href="#指定端口方式">#</a></h4>
+<p>对于常见家用环境下不使用的高危TCP端口进行记录,在连续尝试3次(1分钟超时)后拉黑IP 7天</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>/ip firewall raw
+</span></span><span style="display:flex;"><span>add action=add-src-to-address-list address-list=BOT address-list-timeout=1w chain=prerouting comment=ANTI-SCAN dst-port=20-23,53,80,135,139,443,445,1433,2049,3389,5900,8080,8089 log=yes log-prefix=ANTI-SCAN protocol=tcp src-address-list=SCAN_S2
+</span></span><span style="display:flex;"><span>add action=add-src-to-address-list address-list=SCAN_S2 address-list-timeout=1m chain=prerouting comment=ANTI-SCAN dst-port=20-23,53,80,135,139,443,445,1433,2049,3389,5900,8080,8089 protocol=tcp src-address-list=SCAN_S1
+</span></span><span style="display:flex;"><span>add action=add-src-to-address-list address-list=SCAN_S1 address-list-timeout=1m chain=prerouting comment=ANTI-SCAN dst-port=20-23,53,80,135,139,443,445,1433,2049,3389,5900,8080,8089 in-interface-list=WAN protocol=tcp
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="psd方式">PSD方式<a hidden class="anchor" aria-hidden="true" href="#psd方式">#</a></h4>
+<p>如果觉得搞一堆端口配置太麻烦,也可以用内置的PSD来实现,默认规则为: 3秒内低位端口计3分,高位端口计1分,合计21分触发</p>
+<p>实测默认规则针对端口批量扫描检出率较高,针对定向端口弱口令爆破识别效果稍差,建议自行调整参数,或者结合指定端口方式配置</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>/ip firewall raw
+</span></span><span style="display:flex;"><span>add action=add-src-to-address-list address-list=BOT address-list-timeout=1w chain=prerouting comment=ANTI-SCAN in-interface-list=WAN log=yes log-prefix=ANTI-SCAN protocol=tcp psd=21,3s,3,1
+</span></span><span style="display:flex;"><span>add action=add-src-to-address-list address-list=BOT address-list-timeout=1w chain=prerouting comment=ANTI-SCAN in-interface-list=WAN log=yes log-prefix=ANTI-SCAN protocol=udp psd=21,3s,3,1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="rsyslog配置">Rsyslog配置<a hidden class="anchor" aria-hidden="true" href="#rsyslog配置">#</a></h4>
+<p>如果不需要推送屏蔽完成上述配置即可</p>
+<p>假设接收日志机器ip为192.168.1.100</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>/system logging action
+</span></span><span style="display:flex;"><span>set remote=192.168.1.100 remote
+</span></span><span style="display:flex;"><span>/system logging
+</span></span><span style="display:flex;"><span>add action=remote topics=info
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果不需要其他消息可以在topics中加上firewall,仅过滤并转发防火墙的log</p>
+<h3 id="linux配置">Linux配置<a hidden class="anchor" aria-hidden="true" href="#linux配置">#</a></h3>
+<p>假设接收设备ip为192.168.1.100,ROS ip为192.168.1.1</p>
+<p>修改/etc/rsyslog.conf如下部分,去除最前面的&quot;#&ldquo;解除注释,启用udp模式rsyslog接收ros发送过来的日志</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>module(load=&#34;imudp&#34;)
+</span></span><span style="display:flex;"><span>input(type=&#34;imudp&#34; port=&#34;514&#34;)                              # 可按需修改端口,需要同步修改ros配置端口
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>再添加如下规则</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>:msg, contains, &#34;ANTI-SCAN&#34;     ^/opt/bark/router.sh        # 调用脚本处理并发送bark消息
+</span></span><span style="display:flex;"><span>:FROMHOST-IP, isequal,&#34;192.168.1.1&#34; /var/log/router.log     # 汇总ros日志
+</span></span><span style="display:flex;"><span>:FROMHOST-IP, isequal,&#34;192.168.1.1&#34; ~                       # 防止重复收集到message中
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改/etc/logrotate.d/rsyslog 在花括号前添加一行,配置日志老化</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>/var/log/router.log
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建脚本 /opt/bark/router.sh 并添加权限(chmod +x /opt/bark/router.sh),消息格式可自行按需调整</p>
+<p>YOUR_BARK_SERVER 替换为BARK服务器ip/域名</p>
+<p>YOUR_DEVICE_ID 替换为接收设备ID</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#!/usr/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>msg=<span style="color:#fff;font-weight:bold">$(</span><span style="color:#fff;font-weight:bold">echo</span> <span style="color:#0ff;font-weight:bold">&#34;</span>$*<span style="color:#0ff;font-weight:bold">&#34;</span> |tr <span style="color:#0ff;font-weight:bold">&#34; &#34;</span> <span style="color:#0ff;font-weight:bold">&#34;\n&#34;</span>|grep <span style="color:#0ff;font-weight:bold">&#39;\-&gt;&#39;</span>|grep -E <span style="color:#0ff;font-weight:bold">&#34;(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)&#34;</span>|tr -d <span style="color:#0ff;font-weight:bold">&#34;,&#34;</span><span style="color:#fff;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>curl -X <span style="color:#0ff;font-weight:bold">&#34;POST&#34;</span> <span style="color:#0ff;font-weight:bold">&#34;https://YOUR_BARK_SERVER/push&#34;</span> <span style="color:#0ff;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold"></span>     -H <span style="color:#0ff;font-weight:bold">&#39;Content-Type: application/json; charset=utf-8&#39;</span> <span style="color:#0ff;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold"></span>     -d <span style="color:#0ff;font-weight:bold">$&#39;{
+</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  &#34;body&#34;: &#34;已封禁:\n&#39;</span>$msg<span style="color:#0ff;font-weight:bold">&#39;&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  &#34;device_key&#34;: &#34;YOUR_DEVICE_ID&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  &#34;level&#34;: &#34;passive&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">  &#34;title&#34;: &#34;IDS&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#0ff;font-weight:bold">}&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启rsyslog与logrotate服务使配置生效</p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl restart rsyslog
+</span></span><span style="display:flex;"><span>systemctl restart logrotate
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://blog.xn--7ovq92diups1e.com/tags/routeros/">RouterOS</a></li>
+      <li><a href="https://blog.xn--7ovq92diups1e.com/tags/mikrotik/">Mikrotik</a></li>
+      <li><a href="https://blog.xn--7ovq92diups1e.com/tags/ros/">ROS</a></li>
+      <li><a href="https://blog.xn--7ovq92diups1e.com/tags/firewall/">Firewall</a></li>
+      <li><a href="https://blog.xn--7ovq92diups1e.com/tags/%E9%98%B2%E7%81%AB%E5%A2%99/">防火墙</a></li>
+      <li><a href="https://blog.xn--7ovq92diups1e.com/tags/bark/">Bark</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://blog.xn--7ovq92diups1e.com/post/homelab-cn-working-clock/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>iOS中国大陆工作日闹钟</span>
+  </a>
+</nav>
+
+  </footer><div id="utter-container"></div>
+<script src="https://utteranc.es/client.js" repo='RyoLee/blog-comment'
+    issue-term="pathname" theme='github-light' crossorigin="anonymous"
+    async></script>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://blog.xn--7ovq92diups1e.com">華鳥風月</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a><p id="counter" class="post-meta">
+    <span id="busuanzi_container_site_pv">Site PV: <span id="busuanzi_value_site_pv"></span></span>&nbsp;&nbsp;
+    <span id="busuanzi_container_site_uv">Site UV: <span id="busuanzi_value_site_uv"></span></span>&nbsp;&nbsp;
+    <span id="busuanzi_container_page_pv">Page PV: <span id="busuanzi_value_page_pv"></span></span>
+</p>
+<script>
+    if (window.location.pathname == '/search/') {
+        document.getElementById("counter").parentNode.removeChild(document.getElementById("counter"));
+    } else {
+        document.getElementsByClassName("main")[0].prepend(document.getElementById("counter"));
+    }
+</script>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = 'copy';
+
+        function copyingDone() {
+            copybutton.innerText = 'copied!';
+            setTimeout(() => {
+                copybutton.innerText = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
