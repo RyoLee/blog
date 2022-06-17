@@ -6,11 +6,11 @@
     <description>Recent content in Debian on 華鳥風月</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 23 May 2022 17:48:03 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/debian/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Jun 2022 02:33:07 +0800</lastBuildDate><atom:link href="https://blog.xn--7ovq92diups1e.com/tags/debian/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>RouterOS 通过 OSPF IP分流非CN流量</title>
       <link>https://blog.xn--7ovq92diups1e.com/post/homelab-no-cn-routes/</link>
-      <pubDate>Mon, 23 May 2022 17:48:03 +0800</pubDate>
+      <pubDate>Sat, 18 Jun 2022 02:33:07 +0800</pubDate>
       
       <guid>https://blog.xn--7ovq92diups1e.com/post/homelab-no-cn-routes/</guid>
       <description>ROS ip 分流方案</description>
@@ -27,6 +27,10 @@
 <p>NUC5i5MYBE (debian 11)</p>
 <p>*<em>该版本OSPF似乎有bug,测试邻居离线时出现过一次不能自动删除路由,建议还是LT版本</em></p>
 </li>
+</ul>
+<h3 id="更新">更新</h3>
+<ul>
+<li>2022-6-18: 高版本ROS建立邻居困难问题建议尝试PTP/PTMP模式,并且对齐两侧参数(hello、dead count等),并检查224.0.0.0组播地址范围有无防火墙/路由规则影响导致的不可达问题</li>
 </ul>
 <h3 id="网络结构">网络结构</h3>
 <div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
