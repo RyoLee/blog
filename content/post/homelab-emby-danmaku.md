@@ -5,8 +5,11 @@ description: "Emby danmaku extension"
 tags: ["Emby","弹幕", "插件","Tampermonkey","油猴","弹弹play"]
 projects: ["Homelab"]
 ---
-
+## Emby danmaku extension
 ![截图](https://s1.ax1x.com/2022/08/08/vMicjI.png)
+
+### 项目主页
+[RyoLee/emby-danmaku](https://github.com/RyoLee/emby-danmaku)
 
 ### 安装
 1. [Tampermonkey](https://www.tampermonkey.net/)
@@ -32,7 +35,7 @@ projects: ["Homelab"]
 
 ### 参考项目
 
-[emby-danmaku](https://github.com/susundingkai/emby-danmaku)
+[susundingkai/emby-danmaku](https://github.com/susundingkai/emby-danmaku)
 
 主要差异:
 - 配置存储改为 localstorage
