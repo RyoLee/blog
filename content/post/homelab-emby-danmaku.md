@@ -5,7 +5,6 @@ description: "Emby danmaku extension"
 tags: ["Emby","弹幕", "插件","Tampermonkey","油猴","弹弹play"]
 projects: ["Homelab"]
 ---
-## Emby danmaku extension
 ![截图](https://s1.ax1x.com/2022/08/08/vMicjI.png)
 
 ### 项目主页
