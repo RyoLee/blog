@@ -5,20 +5,34 @@ description: "Emby danmaku extension"
 tags: ["Emby","弹幕", "插件","Tampermonkey","油猴","弹弹play"]
 projects: ["Homelab"]
 ---
-![截图](https://s1.ax1x.com/2022/08/08/vMicjI.png)
+![截图](https://s1.ax1x.com/2022/08/09/vltmKs.png)
 
 ### 项目主页
 [RyoLee/emby-danmaku](https://github.com/RyoLee/emby-danmaku)
 
 ### 安装
+任意一种方式安装即可
+
+#### 浏览器方式(推荐)
 1. [Tampermonkey](https://www.tampermonkey.net/)
 2. [添加脚本](https://cdn.jsdelivr.net/gh/RyoLee/emby-danmaku@gh-pages/ede.user.js)
 
+#### 服务端方式
+路径 /system/dashboard-ui/index.html
+在```</body>```前添加如下标签
+```
+<script src="https://cdn.jsdelivr.net/gh/RyoLee/emby-danmaku@gh-pages/ede.user.js" defer></script>
+```
+
+#### 客户端方式
+类似服务端方式,解包后修改dashboard-ui/index.html再重新打包即可,iOS需要通过类似AltStore方式自签,请自行Google解决
+
 ### 界面
-插件运行后会在界面左下侧追加3个新按钮,分别为:
+插件运行后会在界面左下侧追加4个新按钮,分别为:
 - 弹幕开关
-- 手动匹配弹幕
-- 当前弹幕信息
+- 手动匹配
+- 简繁转换
+- 弹幕信息(触发右下角消息)
 
 ### 补充说明
 弹幕来源为[弹弹play](https://www.dandanplay.com/) 已开启弹幕聚合(A/B/C 站等弹幕融合)
@@ -29,7 +43,7 @@ projects: ["Homelab"]
 
 ### TODO
 - [ ] 屏蔽规则导入
-- [ ] 简繁转换开关
+- [x] 简繁转换开关
 - [ ] 弹幕加载失败自动重试
 
 ### 参考项目
