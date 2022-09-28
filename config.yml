@@ -1,7 +1,7 @@
 baseURL: https://blog.xn--7ovq92diups1e.com
 languageCode: zh-cn
 title: 華鳥風月
-theme: PaperMod
+theme: PaperModX
 timeZone: Asia/Shanghai
 hasCJKLanguage: true
 
@@ -58,6 +58,8 @@ params:
   hidemeta: false
   hideSummary: false
   showtoc: true
+  TocSide: 'left'
+  EnableInstantClick: true
   tocopen: true
   assets:
     disableFingerprinting: true
@@ -98,16 +100,16 @@ minify:
   disableXML: true
   minifyOutput: false
 
-markup:
-  goldmark:
-    renderer:
-      unsafe: true
-  highlight:
-    codeFences: true
-    guessSyntax: true
-    lineNos: true
-    # noClasses: false
-    style: github-gist
+# markup:
+#   goldmark:
+#     renderer:
+#       unsafe: true
+#   highlight:
+#     codeFences: true
+#     guessSyntax: true
+#     lineNos: true
+#     # noClasses: false
+#     style: github-gist
 
 enableGitInfo: true
 frontmatter:
