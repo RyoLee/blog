@@ -59,7 +59,7 @@ params:
   hideSummary: false
   showtoc: true
   TocSide: 'left'
-  EnableInstantClick: true
+  #EnableInstantClick: true
   tocopen: true
   assets:
     disableFingerprinting: true
