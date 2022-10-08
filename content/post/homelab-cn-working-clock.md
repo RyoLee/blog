@@ -15,7 +15,9 @@ projects: ["homelab"]
 
 # 导入&设定
 
-iOS工作日闹钟[快捷指令-工作日闹钟](https://www.icloud.com/shortcuts/a59ec0310b0444579fa69c34dbcdba90)
+iOS工作日闹钟[快捷指令-工作日闹钟](https://www.icloud.com/shortcuts/5ff1633342da40b4951e87c8551a0aa7)
+
+当前版本 v1.1
 
 使用该快捷指令需配置2个闹钟,分别对应工作日和休息日,再编辑快捷指令找到如下部分,分别点击"工作日"/"休息日"改为需要的闹钟
 - [打开]闹钟"工作日"
