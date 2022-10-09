@@ -25,9 +25,9 @@ projects: ["homelab"]
 
 ## 导入&设定
 
-[快捷指令-中国大陆节假日闹钟](https://www.icloud.com/shortcuts/0b37a6ad0a734149b24a45250998accc)
+[快捷指令-中国大陆节假日闹钟](https://www.icloud.com/shortcuts/344b8f1ec97e461d81df254e86eb490b)
 
-导入后编辑快捷指令第 3/8 行,手动选择对应的闹钟并保存
+导入后编辑快捷指令第 4/12 行,手动选择对应的闹钟并保存
 
 ## 自动化
 
