@@ -12,6 +12,7 @@ buildExpired: false
 enableInlineShortcodes: true
 defaultContentLanguage: en
 defaultContentLanguageInSubdir: true
+pluralizeListTitles: false
 paginate: 10
 
 languages:
@@ -58,7 +59,7 @@ params:
   hidemeta: false
   hideSummary: false
   showtoc: true
-  TocSide: 'left'
+  TocSide: "left"
   #EnableInstantClick: true
   tocopen: true
   assets:
