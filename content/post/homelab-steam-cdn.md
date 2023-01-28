@@ -73,6 +73,7 @@ add action=dst-nat chain=dstnat comment="Hijacking for DNS" dst-port=53 protocol
 
 可选的CDN很多,这里以阿里云 ```xz.pphimalayanrt.com``` 为例,若使用其他CDN修改配置中对应域名即可
 
+**请注意在劫持列表中移除你需要使用的CDN域名**
 
 ```
 server {

@@ -6,22 +6,17 @@ tags: ["RouterOS","ROS", "Debian","OSPF","BRID","ip分流"]
 projects: ["Homelab"]
 ---
 
-### 旧: 同网段分流openwrt方案
+主要适用于不想折腾PS/XBOX/Switch设备网关配置,又不希望出口网关为卵漏油/AIB的,或者怕折腾网络时家里断网影响家人的场景
 
-见前文[RouterOS 通过 OSPF IP分流至 OpenWrt](https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/)
-
-零散问题比较多,基于以上测试经验改进出新方案,非CN IP流量出口改为使用运行debian的一台NUC
-
-主要适用于不想折腾PS/XBOX/Switch设备网关配置,又不希望出口网关为卵漏油/AIB的,或者怕折腾网络时家里断网影响家人的
+### 更新    
+- 2022-06-18: 高版本ROS建立邻居困难问题建议尝试PTP/PTMP模式,并且对齐两侧参数(hello、dead count等),并检查224.0.0.0组播地址范围有无防火墙/路由规则影响导致的不可达问题
+- 2023-01-28: 更新探针脚本, 调整文档结构
 
 ### 相关硬件
 - Mikrotik AC^2 (ros stable 7.2.3*)
 - NUC5i5MYBE (debian 11)
 
     **该版本OSPF似乎有bug,测试邻居离线时出现过一次不能自动删除路由,建议还是LT版本*
-
-### 更新    
-- 2022-6-18: 高版本ROS建立邻居困难问题建议尝试PTP/PTMP模式,并且对齐两侧参数(hello、dead count等),并检查224.0.0.0组播地址范围有无防火墙/路由规则影响导致的不可达问题
 
 ### 网络结构
 ```
@@ -235,15 +230,56 @@ protocol ospf v2 {
 ```
 非CN流量出口为虚拟设备为utun,若使用TProxy则配置为对应的以太网网卡(如本例中enp0s25)
 
-/etc/bird/routes4.conf 使用crontab更新
+`/etc/bird/routes4.conf` 使用crontab更新
 ```bash
 0 2 * * * curl -s https://api.xn--7ovq92diups1e.com/ncr?device=utun  -o /etc/bird/routes4.conf
 0 3 */1 * * /etc/init.d/bird reload
 ```
 
 心跳检查,若google 204服务检查失败则停止bird触发回落
+
+探针脚本路径 `/opt/check/tun.sh` (已删除bark推送部分, 可自行按需添加)
 ```bash
-* * * * * [ $(curl --connect-timeout 5 --interface utun -w "%{http_code}" -s https://www.google.com/generate_204) -eq 204 ] && { /etc/init.d/bird status|grep Active|grep -q running|| /etc/init.d/bird restart;} || /etc/init.d/bird stop
+#!/usr/bin/bash
+COUNT=0
+MAX_COUNT=6
+while [ $COUNT -lt $MAX_COUNT ]
+do
+    SER=0
+    NET=0
+    if [ $(curl --connect-timeout 10 --interface utun -w "%{http_code}" -s https://www.google.com/generate_204) -eq 204 ];then
+        NET=1
+    fi
+    if /etc/init.d/bird status|grep Active|grep -q running;then
+        SER=1
+    fi
+    if [ $NET -eq 1 ] && [ $SER -eq 0 ];then
+        /etc/init.d/bird start
+        # curl -X "POST" "https://******/push" -H 'Content-Type: application/json; charset=utf-8' -d $'{"body": "***隧道已上线","device_key": "******","level": "passive","title": "网络探针"}'
+        exit 0
+    fi
+    if [ $NET -eq 0 ] && [ $SER -eq 1 ];then
+        let COUNT+=1
+        if [ $COUNT -eq $MAX_COUNT ];then
+            /etc/init.d/bird stop
+            # curl -X "POST" "https://******/push" -H 'Content-Type: application/json; charset=utf-8' -d $'{"body": "***隧道已离线","device_key": "******","level": "passive","title": "网络探针"}'
+            exit 0
+        fi
+        continue
+    fi
+    exit 0
+done
+```
+```bash
+* * * * * bash /opt/check/tun.sh
 ```
 ### ROS DDNS失效问题
 见前文[ros-ddns失效](https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/#ros-ddns%e5%a4%b1%e6%95%88)
+
+### 参考信息
+
+#### 同网段分流openwrt方案
+
+见前文[RouterOS 通过 OSPF IP分流至 OpenWrt](https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/)
+
+零散问题比较多, 本方案为基于以上测试经验改进出新方案,非CN IP流量出口改为使用运行debian的一台NUC

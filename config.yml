@@ -73,7 +73,7 @@ params:
   # home-info mode
   homeInfoParams:
     Title: "杂物箱"
-    Content: Welcome
+    Content: "我也不知道下一篇内容方向会是啥"
 
   utteranc:
     repo: "RyoLee/blog-comment"
