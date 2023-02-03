@@ -101,16 +101,17 @@ minify:
   disableXML: true
   minifyOutput: false
 
-# markup:
-#   goldmark:
-#     renderer:
-#       unsafe: true
-#   highlight:
-#     codeFences: true
-#     guessSyntax: true
-#     lineNos: true
-#     # noClasses: false
-#     style: github-gist
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    noClasses: false
+    style: github-gist
+    tabWidth: 4
 
 enableGitInfo: true
 frontmatter:
