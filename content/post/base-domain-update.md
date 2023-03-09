@@ -1,6 +1,8 @@
 ---
 author: Ryo
 title: 本站域名已迁移至9-ch.com
+date: 2023-03-09T15:31:19+0800
+lastmod: 2023-03-09T15:31:19+0800
 description: "站点维护日志"
 tags: ["DNS", "Domain", "9-ch.com", "xn--7ovq92diups1e.com", "站点迁移"]
 projects: ["Base"]

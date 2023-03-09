@@ -1,6 +1,8 @@
 ---
 author: Ryo
 title: RouterOS 通过 OSPF IP分流非CN流量
+date: 2022-05-17T120:47:11+0800
+lastmod: 2023-03-09T15:31:37+0800
 description: "ROS ip 分流方案"
 tags: ["RouterOS","ROS", "Debian","OSPF","BRID","ip分流"]
 projects: ["Homelab"]

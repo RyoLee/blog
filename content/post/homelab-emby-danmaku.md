@@ -1,6 +1,8 @@
 ---
 author: Ryo
 title: Emby 弹幕插件
+date: 2022-08-08T18:44:25+0800
+lastmod: 2022-08-09T10:26:11+0800
 description: "Emby danmaku extension"
 tags: ["Emby","弹幕", "插件","Tampermonkey","油猴","弹弹play"]
 projects: ["Homelab"]

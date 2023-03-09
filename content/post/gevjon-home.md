@@ -1,6 +1,8 @@
 ---
 author: Ryo
 title: Gevjon -- YGO Master Duel工具
+date: 2022-04-23T16:00:23+0800
+lastmod: 2022-05-18T17:33:29+0800
 description: "支持识别控制器调用的卡查工具"
 tags: ["YGO","Master Duel", "MD","游戏王","决斗大师","Gevjon"]
 projects: ["Gevjon"]

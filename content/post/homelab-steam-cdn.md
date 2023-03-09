@@ -1,6 +1,8 @@
 ---
 author: Ryo
 title: 通过DNS与Nginx锁定并加速Steam下载(CDN)
+date: 2023-01-28T17:08:11+0800
+lastmod: 2022-09-02T02:31:33+0800
 description: "通过DNS与Nginx锁定并加速Steam下载(CDN)"
 tags: ["Steam","CDN", "Nginx","DNS"]
 projects: ["Homelab"]

@@ -1,3 +1,5 @@
 public
 *.lock
 resources/_gen
+.vs/
+.idea/

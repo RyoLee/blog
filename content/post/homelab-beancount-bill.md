@@ -1,6 +1,8 @@
 ---
 author: Ryo
 title: 通过Python自动生成Beancount月度账单
+date: 2023-02-03T14:37:13+0800
+lastmod: 2023-02-03T14:37:13+0800
 description: "通过BQL查询生成Latex格式Beancount月度账单, 再导出为PDF后发送到邮箱"
 tags: ["Beancount", "BQL", "Python", "Latex", "记账"]
 projects: ["Homelab"]
