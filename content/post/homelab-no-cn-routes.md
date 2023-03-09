@@ -232,7 +232,7 @@ protocol ospf v2 {
 
 `/etc/bird/routes4.conf` 使用crontab更新
 ```bash
-0 2 * * * curl -s https://api.xn--7ovq92diups1e.com/ncr?device=utun  -o /etc/bird/routes4.conf
+0 2 * * * curl -s https://api.9-ch.com/ncr?device=utun  -o /etc/bird/routes4.conf
 0 3 */1 * * /etc/init.d/bird reload
 ```
 
@@ -274,12 +274,12 @@ done
 * * * * * bash /opt/check/tun.sh
 ```
 ### ROS DDNS失效问题
-见前文[ros-ddns失效](https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/#ros-ddns%e5%a4%b1%e6%95%88)
+见前文[ros-ddns失效](https://blog.9-ch.com/post/homelab-ros-ospf/#ros-ddns%e5%a4%b1%e6%95%88)
 
 ### 参考信息
 
 #### 同网段分流openwrt方案
 
-见前文[RouterOS 通过 OSPF IP分流至 OpenWrt](https://blog.xn--7ovq92diups1e.com/post/homelab-ros-ospf/)
+见前文[RouterOS 通过 OSPF IP分流至 OpenWrt](https://blog.9-ch.com/post/homelab-ros-ospf/)
 
 零散问题比较多, 本方案为基于以上测试经验改进出新方案,非CN IP流量出口改为使用运行debian的一台NUC
