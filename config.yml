@@ -74,11 +74,7 @@ params:
   homeInfoParams:
     Title: "杂物箱"
     Content: "我也不知道下一篇内容方向会是啥"
-
-  utteranc:
-    repo: "RyoLee/blog-comment"
-    issueTerm: "pathname"
-    theme: "github-light"
+  comments: true
 
   socialIcons:
     - name: github
