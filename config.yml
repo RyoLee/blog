@@ -1,6 +1,6 @@
 baseURL: https://blog.9-ch.com/
 languageCode: zh-cn
-title: ⑨-Channel
+title: 華鳥風月
 theme: PaperModX
 timeZone: Asia/Shanghai
 hasCJKLanguage: true
@@ -72,7 +72,7 @@ params:
 
   # home-info mode
   homeInfoParams:
-    Title: "華鳥風月"
+    Title: "⑨-Channel"
     Content: "后续除引用资源变更等特殊情况外, 将尽量通过新文章的方式发布变更/更新等内容."
   comments: true
 
