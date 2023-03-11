@@ -1,0 +1,42 @@
+{
+  "psi-header.config": {
+    "forceToTop": true,
+    "blankLinesAfter": 3,
+    "license": "Custom"
+  },
+  "psi-header.changes-tracking": {
+    "isActive": true,
+    "modDate": "lastmod: ",
+    "modDateFormat": "YYYY-MM-DDTHH:mm:ssZZ",
+    "include": ["markdown"],
+    "exclude": [],
+    "excludeGlob": [],
+    "autoHeader": "manualSave"
+  },
+  "psi-header.variables": [
+    ["author", "Ryo"]
+  ],
+  "psi-header.lang-config": [
+    {
+      "language": "markdown",
+      "begin": "---",
+      "prefix": "",
+      "end": "---",
+      "blankLinesAfter": 1
+    }
+  ],
+  "psi-header.templates": [
+    {
+      "language": "markdown",
+      "template": [
+        "author: <<author>>",
+        "title: \"\"",
+        "date: <<filecreated('YYYY-MM-DDTHH:mm:ssZZ')>>",
+        "lastmod: ",
+        "description: \"\"",
+        "tags: []",
+        "projects: []"
+      ]
+    }
+  ]
+}
