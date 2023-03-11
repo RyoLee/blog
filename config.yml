@@ -113,7 +113,7 @@ enableGitInfo: true
 frontmatter:
   expiryDate: ["expiryDate"]
   date: ["date", "publishDate", "lastmod", ":git"]
-  lastmod: [":git", "lastmod", ":fileModTime", ":default"]
+  lastmod: ["lastmod", ":git", ":fileModTime", ":default"]
   publishDate: ["publishDate", "date", ":git"]
 
 taxonomies:
